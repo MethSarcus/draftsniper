@@ -11,6 +11,11 @@ a {
   text-decoration: none;
 }
 
+.LeagueCard {
+  color: red;
+  background-color: red;
+}
+
 * {
   box-sizing: border-box;
 }
