@@ -25,7 +25,7 @@ constructor(props: MyProps) {
         maxW={'330px'}
         w={'full'}
         bg={'white.800'}
-        boxShadow={'2xl'}
+        boxShadow={'md'}
         rounded={'lg'}
         pos={'relative'}
         zIndex={1}>
