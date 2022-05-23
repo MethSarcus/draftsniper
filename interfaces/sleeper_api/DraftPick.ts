@@ -9,6 +9,11 @@ export interface DraftPick {
     draft_slot: number;
     draft_id: string;
   }
+
+export interface CombinedDraftPick {
+  combined_pick_no: number;
+  draft_history: DraftPick[];
+}
   
   export interface Metadata {
     years_exp: string;

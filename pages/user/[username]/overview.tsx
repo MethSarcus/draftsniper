@@ -9,6 +9,8 @@ import { useContext } from 'react';
 import { Context } from '../../../contexts/Context';
 import { LeaguesContext } from '../../../contexts/LeaguesContext';
 import { LeagueSettings } from '../../../interfaces/sleeper_api/LeagueSettings';
+import AllPicksTable from '../../../components/AllPicksTable'
+import MyDataTable from '../../../components/MyDataTable';
 
 const Overview = () => {
     const router = useRouter();
@@ -30,13 +32,23 @@ const Overview = () => {
             <h1>{router.query.username}</h1>
             <h2>{context}</h2>
             
-                <Box maxHeight={200}><LeagueCarousel leagues={data}></LeagueCarousel></Box>
+                <Box maxHeight={400}><LeagueCarousel leagues={data}></LeagueCarousel></Box>
                 <Grid
                 templateRows='repeat(2, 1fr)'
                 templateColumns='repeat(12, 1fr)'
                 p={4}
-                gap={1}
-                >
+                gap={1}>
+                    <GridItem rowSpan={2} colSpan={3}>
+                    <Box
+                    role={'group'}
+                    maxW={'600px'}
+                    rounded={'lg'}
+                    overflowY="auto"
+                    maxHeight={800}
+                    zIndex={1}>
+                        <MyDataTable/>
+                    </Box>
+                </GridItem>
                 {data.filter((it:LeagueSettings) => {return it.status != "pre_draft"}).map(function(item: LeagueSettings) {
                     return (<GridItem key={item.league_id} rowSpan={2} colSpan={3} >
                             <Box
@@ -50,8 +62,22 @@ const Overview = () => {
                             maxHeight={800}
                             zIndex={1}><PositionDraftTable draftId={item.draft_id}/>
                             </Box>
-                    </GridItem>)
-                })}
+                    </GridItem>)})}
+                <GridItem rowSpan={2} colSpan={3}>
+                    <Box
+                    role={'group'}
+                    p={4}
+                    maxW={'600px'}
+                    bg={'white.800'}
+                    boxShadow={'2xl'}
+                    rounded={'lg'}
+                    overflowY="auto"
+                    maxHeight={800}
+                    zIndex={1}>
+                        <AllPicksTable/>
+                    </Box>
+                </GridItem>
+                
             </Grid>
             
         </div>
