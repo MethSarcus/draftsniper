@@ -11,6 +11,7 @@ import { LeaguesContext } from '../../../contexts/LeaguesContext';
 import { LeagueSettings } from '../../../interfaces/sleeper_api/LeagueSettings';
 import AllPicksTable from '../../../components/AllPicksTable'
 import MyDataTable from '../../../components/MyDataTable';
+import RobustPicksTable from '../../../components/RobustPickTable';
 
 const Overview = () => {
     const router = useRouter();
@@ -38,15 +39,15 @@ const Overview = () => {
                 templateColumns='repeat(12, 1fr)'
                 p={4}
                 gap={1}>
-                    <GridItem rowSpan={2} colSpan={3}>
+                    <GridItem rowSpan={2} colSpan={6}>
                     <Box
                     role={'group'}
-                    maxW={'600px'}
+                    maxW={'1000px'}
                     rounded={'lg'}
                     overflowY="auto"
                     maxHeight={800}
                     zIndex={1}>
-                        <MyDataTable/>
+                        <RobustPicksTable leagues={data}/>
                     </Box>
                 </GridItem>
                 {data.filter((it:LeagueSettings) => {return it.status != "pre_draft"}).map(function(item: LeagueSettings) {
