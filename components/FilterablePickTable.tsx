@@ -1,32 +1,17 @@
-import {
-	TableContainer,
-	Table,
-	TableCaption,
-	Thead,
-	Tr,
-	Th,
-	Tbody,
-	Td,
-	Tfoot,
-	Checkbox,
-	Stack,
-} from "@chakra-ui/react"
+import { Checkbox, Stack } from "@chakra-ui/react"
 import axios from "axios"
-import e from "cors"
 import React, { useState } from "react"
 import { useContext } from "react"
 import useSWR from "swr"
 import { Context } from "../contexts/Context"
-import { DraftPick } from "../interfaces/sleeper_api/DraftPick"
 import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
-import AllPicksTable from "./AllPicksTable"
-import MyDataTable from "./MyDataTable"
+import DraftPickDataTable from "./DraftPickDataTable"
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
 type MyProps = { leagues: LeagueSettings[] }
 
-const RobustPicksTable = (props: MyProps) => {
+const FilterablePickTable = (props: MyProps) => {
 	const [context, setContext] = useContext(Context)
 	const [includedDrafts, setIncludedDrafts] = useState(
 		props.leagues.map((league) => league.draft_id)
@@ -70,9 +55,9 @@ const RobustPicksTable = (props: MyProps) => {
 					)
 				})}
 			</Stack>
-			<MyDataTable picks={data.picks} includedDrafts={includedDrafts} />
+			<DraftPickDataTable picks={data.picks} includedDrafts={includedDrafts} />
 		</div>
 	)
 }
 
-export default RobustPicksTable
+export default FilterablePickTable

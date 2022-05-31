@@ -35,7 +35,7 @@ const columns: TableColumn<DataRow>[] = [
 	},
 ]
 
-const MyDataTable = (props: MyProps): JSX.Element => {
+const DraftPickDataTable = (props: MyProps): JSX.Element => {
 	const [context, setContext] = useContext(Context)
 	// data provides access to your row data
 
@@ -91,4 +91,4 @@ function formatPickForTable(pick: DraftPick): DataRow {
 	}
 }
 
-export default MyDataTable
+export default DraftPickDataTable

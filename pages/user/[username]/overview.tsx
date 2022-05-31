@@ -10,8 +10,7 @@ import { Context } from '../../../contexts/Context';
 import { LeaguesContext } from '../../../contexts/LeaguesContext';
 import { LeagueSettings } from '../../../interfaces/sleeper_api/LeagueSettings';
 import AllPicksTable from '../../../components/AllPicksTable'
-import MyDataTable from '../../../components/MyDataTable';
-import RobustPicksTable from '../../../components/RobustPickTable';
+import FilterablePickTable from '../../../components/FilterablePickTable';
 
 const Overview = () => {
     const router = useRouter();
@@ -47,7 +46,7 @@ const Overview = () => {
                     overflowY="auto"
                     maxHeight={800}
                     zIndex={1}>
-                        <RobustPicksTable leagues={data}/>
+                        <FilterablePickTable leagues={data}/>
                     </Box>
                 </GridItem>
                 {data.filter((it:LeagueSettings) => {return it.status != "pre_draft"}).map(function(item: LeagueSettings) {
