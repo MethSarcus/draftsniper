@@ -38,10 +38,9 @@ const Overview = () => {
                 templateColumns='repeat(12, 1fr)'
                 p={4}
                 gap={1}>
-                    <GridItem rowSpan={2} colSpan={6}>
+                    <GridItem rowSpan={2} colSpan={8}>
                     <Box
                     role={'group'}
-                    maxW={'1000px'}
                     rounded={'lg'}
                     overflowY="auto"
                     maxHeight={800}
@@ -49,35 +48,6 @@ const Overview = () => {
                         <FilterablePickTable leagues={data}/>
                     </Box>
                 </GridItem>
-                {data.filter((it:LeagueSettings) => {return it.status != "pre_draft"}).map(function(item: LeagueSettings) {
-                    return (<GridItem key={item.league_id} rowSpan={2} colSpan={3} >
-                            <Box
-                            role={'group'}
-                            p={4}
-                            maxW={'600px'}
-                            bg={'white.800'}
-                            boxShadow={'2xl'}
-                            rounded={'lg'}
-                            overflowY="auto"
-                            maxHeight={800}
-                            zIndex={1}><PositionDraftTable draftId={item.draft_id}/>
-                            </Box>
-                    </GridItem>)})}
-                <GridItem rowSpan={2} colSpan={3}>
-                    <Box
-                    role={'group'}
-                    p={4}
-                    maxW={'600px'}
-                    bg={'white.800'}
-                    boxShadow={'2xl'}
-                    rounded={'lg'}
-                    overflowY="auto"
-                    maxHeight={800}
-                    zIndex={1}>
-                        <AllPicksTable/>
-                    </Box>
-                </GridItem>
-                
             </Grid>
             
         </div>
