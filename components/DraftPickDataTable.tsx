@@ -12,7 +12,7 @@ import useSWR from "swr"
 import { Context } from "../contexts/Context"
 import axios from "axios"
 
-type MyProps = { picks: DraftPick[]; includedDrafts: string[] }
+type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[] }
 
 interface DataRow {
 	id: string
@@ -71,6 +71,8 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 			data={props.picks
 				.filter((e) => {
 					return props.includedDrafts.includes(e.draft_id)
+				}).filter((e) => {
+					return props.includedPositions.includes(e.metadata.position)
 				})
 				.map((pick: DraftPick) => formatPickForTable(pick))}
 			conditionalRowStyles={conditionalRowStyles}
