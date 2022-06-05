@@ -30,13 +30,10 @@ type Data = {
 	picks: DraftPick[]
 }
 
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse<Data>
-) {
-	const { user } = req.query
-	await runMiddleware(req, res, cors)
-
+export default async function handler(req: NextApiRequest,res: NextApiResponse<Data>) {
+    const { user } = req.query
+    await runMiddleware(req, res, cors)
+    
 	const picks = await loadPicks(user.toString())
 	res.status(200).json({ picks: picks.flat() })
 }
