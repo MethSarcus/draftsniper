@@ -12,7 +12,7 @@ import useSWR from "swr"
 import { Context } from "../contexts/Context"
 import axios from "axios"
 
-type MyProps = { picks: DraftPick[]; includedDrafts: string[] }
+type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[] }
 
 interface DataRow {
 	id: string
@@ -35,7 +35,7 @@ const columns: TableColumn<DataRow>[] = [
 	},
 ]
 
-const MyDataTable = (props: MyProps): JSX.Element => {
+const DraftPickDataTable = (props: MyProps): JSX.Element => {
 	const [context, setContext] = useContext(Context)
 	// data provides access to your row data
 
@@ -71,6 +71,8 @@ const MyDataTable = (props: MyProps): JSX.Element => {
 			data={props.picks
 				.filter((e) => {
 					return props.includedDrafts.includes(e.draft_id)
+				}).filter((e) => {
+					return props.includedPositions.includes(e.metadata.position)
 				})
 				.map((pick: DraftPick) => formatPickForTable(pick))}
 			conditionalRowStyles={conditionalRowStyles}
@@ -91,4 +93,4 @@ function formatPickForTable(pick: DraftPick): DataRow {
 	}
 }
 
-export default MyDataTable
+export default DraftPickDataTable

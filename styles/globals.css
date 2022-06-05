@@ -23,3 +23,90 @@ a {
 .UserPick {
   background-color: red;
 }
+
+.DraftPickCardBackground {
+  background: #C4C4C4;
+  border-radius: 6px 6px 0px 6px;
+  width: 120px;
+  height: 43px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.DraftPickCardH1 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  padding-top: 3px;
+  padding-left: 3px;
+  display: flex;
+  align-items: center;
+  font-feature-settings: 'kern' off;
+
+  color: #000000;
+}
+
+.DraftPickCardH2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  padding-left: 3px;
+  align-items: center;
+
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.DraftPickCardPickNumber {
+  position: absolute;
+  left: 82.5%;
+  right: 5%;
+  top: 16.28%;
+  bottom: 60.47%;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.DraftPickImageContainer {
+  position: absolute;
+  left: 76.67%;
+  right: 0%;
+  bottom: 0%;
+}
+
+.QB {
+  background: rgba(239, 116, 161, 0.8)
+}
+
+.RB {
+  background: rgba(143, 242, 202, 0.8);
+}
+
+.WR {
+  background: rgba(86, 201, 248, 0.8)
+}
+
+.TE {
+  background: rgba(254, 174, 88, 0.8)
+}
+
+.DL {
+  background: rgba(250, 153, 97, 0.8)
+}
+
+.DB {
+  background: rgba(254, 160, 202, 0.8)
+}
+
+.LB {
+  background: rgba(174, 182, 252, 0.8)
+}
