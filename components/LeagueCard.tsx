@@ -7,16 +7,20 @@ import {
   Box,
   StatGroup,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router';
 
-type MyProps = { leagueNumTeams: string, leagueName: string, draftState: string };
+type MyProps = { leagueNumTeams: string, leagueName: string, draftState: string, draftId: string };
 
-export default class LeagueCard extends React.Component<MyProps> {
-    
-constructor(props: MyProps) {
-    super(props);
+
+const LeagueCard = (props: MyProps) => {
+  const router = useRouter();
+
+function onSub(e: React.SyntheticEvent) {
+  
+  e.preventDefault();
+  router.push({pathname: '/user/' + router.query.username + '/draft/' + props.draftId})
 }
 
-    render() {
       return (
       <Stat size="sm">
         <Box
@@ -28,12 +32,14 @@ constructor(props: MyProps) {
         boxShadow={'md'}
         rounded={'lg'}
         pos={'relative'}
-        zIndex={1}>
-        <StatLabel>Teams: {this.props.leagueNumTeams}</StatLabel>
-        <StatNumber>{this.props.leagueName}</StatNumber>
-        <StatHelpText>Currently {this.props.draftState}</StatHelpText>
+        zIndex={1}
+        onClick={onSub}>
+        <StatLabel>Teams: {props.leagueNumTeams}</StatLabel>
+        <StatNumber>{props.leagueName}</StatNumber>
+        <StatHelpText>Currently {props.draftState}</StatHelpText>
         </Box>
       </Stat>
       )
-    }
   }
+
+  export default LeagueCard;
