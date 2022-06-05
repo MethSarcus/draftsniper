@@ -47,7 +47,7 @@ const DraftBoard = () => {
           templateColumns="repeat(12, 1fr)"
           gap={1}
         >{data.map((pick: DraftPick) => {
-            return <GridItem colSpan={1} ><DraftPickCard pick={pick}></DraftPickCard></GridItem>;
+            return <GridItem key={pick.draft_id + '_' + pick.player_id} colSpan={1} ><DraftPickCard pick={pick}></DraftPickCard></GridItem>;
           })}
         </Grid>
         
