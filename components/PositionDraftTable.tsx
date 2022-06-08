@@ -27,7 +27,7 @@ const PositionDraftTable = (props: MyProps) => {
         </Thead>
         <Tbody>
         {data.map((pick: DraftPick) => {
-            return <Tr key={pick.player_id} className={(pick.picked_by == context) ? 'UserPick' : 'NonUserPick'}>
+            return <Tr key={pick.player_id} className={(pick.picked_by == context.id) ? 'UserPick' : 'NonUserPick'}>
                   <Td isNumeric>{pick.pick_no}</Td>
                   <Td>{pick.metadata.first_name} {pick.metadata.last_name}</Td>
             </Tr>})}

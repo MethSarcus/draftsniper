@@ -8,11 +8,13 @@ import useSWR from "swr";
 import { Context } from "../contexts/Context";
 import { DraftPick } from "../interfaces/sleeper_api/DraftPick";
 import DataTable from 'react-data-table-component';
+import CurrentMember from "../interfaces/FocusedMember";
 
-const fetcher = (url: string) => axios.get(url).then(res => res.data);
+
 const AllPicksTable = () => {
-  const [context, setContext] = useContext(Context);
-  const { data, error } = useSWR(`/api/picks/${context}`, fetcher)
+  const context: CurrentMember = useContext(Context);
+  const fetcher = (url: string) => axios.get(url).then(res => context.draftPicks = res.data);
+  const { data, error } = useSWR(`/api/picks/${context.id}`, fetcher)
   
 
 
@@ -28,9 +30,9 @@ const AllPicksTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-            {assignAllPickDraftValues(data.picks)}
-        {data.picks.map((pick: DraftPick) => {
-            return <Tr key={pick.draft_id + "_" + pick.player_id} className={(pick.picked_by == context) ? 'UserPick' : 'NonUserPick'}>
+            {assignAllPickDraftValues(context.getUserPicks())}
+        {context.getUserPicks().map((pick: DraftPick) => {
+            return <Tr key={pick.draft_id + "_" + pick.player_id} className={(pick.picked_by == context.id) ? 'UserPick' : 'NonUserPick'}>
                   <Td isNumeric>{pick.pick_no}</Td>
                   <Td>{pick.metadata.first_name} {pick.metadata.last_name}</Td>
             </Tr>})}

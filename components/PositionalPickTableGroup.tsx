@@ -26,7 +26,7 @@ const PositionalPickTableGroup = () => {
 
 
     const allPicks = picksContext.filter((pick: DraftPick) => {
-        return pick.picked_by == context 
+        return pick.picked_by == context.id
     })
 
 	return (

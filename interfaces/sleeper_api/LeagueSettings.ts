@@ -200,4 +200,12 @@ export interface LeagueSettings {
     division_2_avatar?: string | null;
     division_1_avatar?: string | null;
   }
+
+  export interface MemberDetails {
+    username: string;
+    user_id: string;
+    display_name: string;
+    avatar: string;
+  }
+  
   

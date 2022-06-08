@@ -11,14 +11,18 @@ import { LeaguesContext } from '../../../contexts/LeaguesContext';
 import { LeagueSettings } from '../../../interfaces/sleeper_api/LeagueSettings';
 import AllPicksTable from '../../../components/AllPicksTable'
 import FilterablePickTable from '../../../components/FilterablePickTable';
+import { PicksContext } from '../../../contexts/PicksContext';
+import PositionalPickTableGroup from '../../../components/PositionalPickTableGroup';
+import CurrentMember from '../../../interfaces/FocusedMember';
 
 const Overview = () => {
     const router = useRouter();
     const [context, setContext] = useContext(Context);
-    const [leagueContext, setLeagueContext] = useContext(LeaguesContext);
+    const [leaguesContext, setLeaguesContext] = useContext(LeaguesContext);
+    const [picksContext, setPicksContext] = useContext(PicksContext);
 
     const fetcher = (url: string)  => axios.get(url).then(function(res) { 
-        setContext(res.data.user_id);
+        setContext(new CurrentMember(res.data));
         return axios.get('https://api.sleeper.app/v1/user/' + res.data.user_id + '/leagues/nfl/2022')
     }).then(res => res.data);
     
@@ -29,8 +33,10 @@ const Overview = () => {
     
     return (
         <div>
-            <h1>{router.query.username}</h1>
-            <h2>{context}</h2>
+            <h1>{context.displayName}</h1>
+            <h2>{context.username}</h2>
+            <h2>{context.avatar}</h2>
+            <h2>{context.id}</h2>
             
                 <Box maxHeight={400}><LeagueCarousel leagues={data}></LeagueCarousel></Box>
                 <Grid
@@ -46,6 +52,16 @@ const Overview = () => {
                     maxHeight={800}
                     zIndex={1}>
                         <FilterablePickTable leagues={data}/>
+                    </Box>
+                </GridItem>
+                <GridItem rowSpan={4} colSpan={12}>
+                    <Box
+                    role={'group'}
+                    rounded={'lg'}
+                    overflowY="auto"
+                    maxHeight={800}
+                    zIndex={1}>
+                        {/* {leaguesContext? <PositionalPickTableGroup/> : null}  */}
                     </Box>
                 </GridItem>
             </Grid>

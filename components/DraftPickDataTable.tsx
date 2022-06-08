@@ -8,11 +8,13 @@ import {
 } from "../interfaces/sleeper_api/DraftPick"
 import React from "react"
 import { useContext } from "react"
-import useSWR from "swr"
 import { Context } from "../contexts/Context"
-import axios from "axios"
 
-type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[] }
+type MyProps = {
+	picks: DraftPick[]
+	includedDrafts: string[]
+	includedPositions: string[]
+}
 
 interface DataRow {
 	id: string
@@ -36,7 +38,7 @@ const columns: TableColumn<DataRow>[] = [
 ]
 
 const DraftPickDataTable = (props: MyProps): JSX.Element => {
-	const [context, setContext] = useContext(Context)
+	const [context] = useContext(Context)
 	// data provides access to your row data
 
 	const ExpandedComponent: React.FC<ExpanderComponentProps<DataRow>> = ({
@@ -54,7 +56,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 	}
 	const conditionalRowStyles = [
 		{
-			when: (row: any) => row.id.includes(context),
+			when: (row: any) => row.id.includes(context.id),
 			style: {
 				backgroundColor: "green",
 				color: "white",
@@ -71,7 +73,8 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 			data={props.picks
 				.filter((e) => {
 					return props.includedDrafts.includes(e.draft_id)
-				}).filter((e) => {
+				})
+				.filter((e) => {
 					return props.includedPositions.includes(e.metadata.position)
 				})
 				.map((pick: DraftPick) => formatPickForTable(pick))}

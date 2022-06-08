@@ -8,18 +8,22 @@ import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions"
 import DraftPickDataTable from "./DraftPickDataTable"
 import { Divider } from "@chakra-ui/react"
+import PositionalPickTableGroup from "./PositionalPickTableGroup"
+import { PicksContext } from "../contexts/PicksContext"
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data)
+
 
 type MyProps = { leagues: LeagueSettings[] }
 
 const FilterablePickTable = (props: MyProps) => {
 	const [context, setContext] = useContext(Context)
+	const [picksContext, setPicksContext] = useContext(PicksContext);
+	const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 	const [includedDrafts, setIncludedDrafts] = useState(
 		props.leagues.map((league) => league.draft_id)
 	)
 
-	const { data, error } = useSWR(`/api/picks/${context}`, fetcher)
+	const { data, error } = useSWR(`/api/picks/${context.id}`, fetcher)
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.checked) {
 			let newVar = [...includedDrafts]
@@ -62,6 +66,9 @@ const FilterablePickTable = (props: MyProps) => {
 
 	if (error) return <div>Failed to load</div>
 	if (!data) return <div>Loading...</div>
+	if(data) {
+		setPicksContext(data.picks)
+	}
 
 	return (
 		<div>
