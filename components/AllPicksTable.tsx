@@ -1,13 +1,9 @@
-import { TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot } from "@chakra-ui/react";
-import { isArray } from "@chakra-ui/utils";
+import { Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import axios from "axios";
-import { assert } from "console";
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import useSWR from "swr";
 import { Context } from "../contexts/Context";
 import { DraftPick } from "../interfaces/sleeper_api/DraftPick";
-import DataTable from 'react-data-table-component';
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 const AllPicksTable = () => {

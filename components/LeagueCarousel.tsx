@@ -1,7 +1,7 @@
+import { StatGroup } from '@chakra-ui/react';
 import React from 'react';
 import { LeagueSettings } from '../interfaces/sleeper_api/LeagueSettings';
 import LeagueCard from './LeagueCard';
-import {StatGroup} from '@chakra-ui/react'
 
 type MyProps = { leagues: LeagueSettings[] };
 export default class LeagueCarousel extends React.Component<MyProps> {

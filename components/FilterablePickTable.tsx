@@ -1,13 +1,11 @@
-import { Checkbox, Heading, Stack } from "@chakra-ui/react"
+import { Checkbox, Divider, Heading, Stack } from "@chakra-ui/react"
 import axios from "axios"
-import React, { useState } from "react"
-import { useContext } from "react"
+import React, { useContext, useState } from "react"
 import useSWR from "swr"
 import { Context } from "../contexts/Context"
 import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions"
 import DraftPickDataTable from "./DraftPickDataTable"
-import { Divider } from "@chakra-ui/react"
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data)
 
