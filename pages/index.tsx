@@ -3,8 +3,10 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import React, { useState, useRef } from 'react'
-import { Input } from '@chakra-ui/react'
+import { Box, Input } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react'
+import Image from 'next/image'
+import bg from '../images/background.png'
 
 const Home: NextPage = () => {
 
@@ -34,11 +36,21 @@ const Home: NextPage = () => {
             <header className="App-header">
                 <h1>Draft Sniper</h1>
             </header>
+            <Image
+        src={bg}
+        alt="Picture of the author"
+        // width={500} automatically provided
+        // height={500} automatically provided
+        // blurDataURL="data:..." automatically provided
+        // placeholder="blur" // Optional blur-up while loading
+      />
 
+            <Box boxShadow={3}>
             <form onSubmit={onFormSubmit}>
                 <Input placeholder="LeagueID or Username" value={text} onChange={(e) => setText(e.target.value)} />
-                <Button type="submit" colorScheme="blue">Submit</Button>
+                <Button type="submit" colorScheme="blue" marginTop={2}>Submit</Button>
             </form>
+            </Box>
         </div>
       </main>
 
