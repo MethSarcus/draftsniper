@@ -110,3 +110,12 @@ a {
 .LB {
   background: rgba(174, 182, 252, 0.8)
 }
+
+.formContainer {
+  color: white;
+  visibility: visible;
+  background: #121212;
+  border-radius: 5px;
+  padding: 50px;
+  opacity: .99;
+}
