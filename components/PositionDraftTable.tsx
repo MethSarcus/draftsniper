@@ -1,17 +1,15 @@
-import { TableContainer, Table, TableCaption, Thead, Tr, Th, Tbody, Td, Tfoot } from "@chakra-ui/react";
+import { Table, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import axios from "axios";
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import useSWR from "swr";
 import { Context } from "../contexts/Context";
 import { DraftPick } from "../interfaces/sleeper_api/DraftPick";
-import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings";
 
 type MyProps = { draftId: string };
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 const PositionDraftTable = (props: MyProps) => {
-  const [context, setContext] = useContext(Context);
+  const [context] = useContext(Context);
   const { data, error } = useSWR('https://api.sleeper.app/v1/draft/' + props.draftId + '/picks', fetcher)
 
   if (error) return <div>Failed to load</div>
