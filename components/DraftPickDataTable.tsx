@@ -68,6 +68,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 	return (
 		<DataTable
 			columns={columns}
+			defaultSortFieldId={1}
 			data={props.picks
 				.filter((e) => {
 					return props.includedDrafts.includes(e.draft_id)

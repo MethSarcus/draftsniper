@@ -11,6 +11,7 @@ import { LeaguesContext } from '../../../contexts/LeaguesContext';
 import { LeagueSettings } from '../../../interfaces/sleeper_api/LeagueSettings';
 import AllPicksTable from '../../../components/AllPicksTable'
 import FilterablePickTable from '../../../components/FilterablePickTable';
+import DraftTableGroup from '../../../components/DraftTableGroup';
 
 const Overview = () => {
     const router = useRouter();
@@ -33,22 +34,7 @@ const Overview = () => {
             <h2>{context}</h2>
             
                 <Box maxHeight={400}><LeagueCarousel leagues={data}></LeagueCarousel></Box>
-                <Grid
-                templateRows='repeat(2, 1fr)'
-                templateColumns='repeat(12, 1fr)'
-                p={4}
-                gap={1}>
-                    <GridItem rowSpan={2} colSpan={8}>
-                    <Box
-                    role={'group'}
-                    rounded={'lg'}
-                    overflowY="auto"
-                    maxHeight={800}
-                    zIndex={1}>
-                        <FilterablePickTable leagues={data}/>
-                    </Box>
-                </GridItem>
-            </Grid>
+                <DraftTableGroup leagues={data}/>
             
         </div>
     );

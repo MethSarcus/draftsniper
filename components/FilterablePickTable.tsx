@@ -3,21 +3,18 @@ import axios from "axios"
 import React, { useContext, useState } from "react"
 import useSWR from "swr"
 import { Context } from "../contexts/Context"
+import { DraftPick } from "../interfaces/sleeper_api/DraftPick"
 import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions"
 import DraftPickDataTable from "./DraftPickDataTable"
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data)
-
-type MyProps = { leagues: LeagueSettings[] }
+type MyProps = { leagues: LeagueSettings[], picks: DraftPick[] }
 
 const FilterablePickTable = (props: MyProps) => {
-	const [context, setContext] = useContext(Context)
 	const [includedDrafts, setIncludedDrafts] = useState(
 		props.leagues.map((league) => league.draft_id)
 	)
 
-	const { data, error } = useSWR(`/api/picks/${context}`, fetcher)
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!event.target.checked) {
 			let newVar = [...includedDrafts]
@@ -57,9 +54,6 @@ const FilterablePickTable = (props: MyProps) => {
 			}
 		}
 	}
-
-	if (error) return <div>Failed to load</div>
-	if (!data) return <div>Loading...</div>
 
 	return (
 		<div>
@@ -105,7 +99,7 @@ const FilterablePickTable = (props: MyProps) => {
 				)}
 			</Stack>
 			<DraftPickDataTable
-				picks={data.picks}
+				picks={props.picks}
 				includedDrafts={includedDrafts}
 				includedPositions={includedPositions}
 			/>
