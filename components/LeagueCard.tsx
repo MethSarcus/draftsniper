@@ -1,13 +1,9 @@
-import React from 'react';
 import {
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  Box,
-  StatGroup,
-} from '@chakra-ui/react'
+  Box, Button, Stat, StatHelpText, StatLabel,
+  StatNumber
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 type MyProps = { leagueNumTeams: string, leagueName: string, draftState: string, draftId: string };
 
@@ -33,10 +29,13 @@ function onSub(e: React.SyntheticEvent) {
         rounded={'lg'}
         pos={'relative'}
         zIndex={1}
-        onClick={onSub}>
+        >
         <StatLabel>Teams: {props.leagueNumTeams}</StatLabel>
         <StatNumber>{props.leagueName}</StatNumber>
         <StatHelpText>Currently {props.draftState}</StatHelpText>
+        <Button onClick={onSub} variant='outline' colorScheme='teal' size='xs'>
+          View Draft
+        </Button>
         </Box>
       </Stat>
       )

@@ -35,52 +35,54 @@ const DraftTableGroup = (props: MyProps) => {
 	return (
 		<div>
 			<Grid
+				bg={"brand.100"}
 				className='posTableGroup'
 				templateRows='repeat(2, 1fr)'
 				templateColumns='repeat(12, 1fr)'
-				p={6}
-				gap={2}
+				p={2}
+				gap={4}
 			>
-				<GridItem rowSpan={2} colSpan={8}>
-					<Box
-						role={"group"}
-						rounded={"lg"}
-						overflowY='auto'
-						maxHeight={800}
-						zIndex={1}
-					>
-						<FilterablePickTable
-							leagues={props.leagues}
-							picks={data.picks}
-						/>
-					</Box>
+				<GridItem
+					rowSpan={2}
+					colSpan={4}
+					rounded={"lg"}
+					overflowY='auto'
+					maxHeight={800}
+					boxShadow={1}
+					zIndex={1}
+				>
+					<FilterablePickTable
+						leagues={props.leagues}
+						picks={data.picks}
+					/>
 				</GridItem>
 
 				{positions.map((pos) => {
-                    if (data.picks.filter((pick: DraftPick) => {return pick.metadata.position == pos}).length > 0) {
-                        return (
-                            <GridItem
-                                rowSpan={2}
-                                colSpan={4}
-                                key={`position_table_${pos}`}
-                            >
-                                <h1>{pos}</h1>
-                                <Box
-                                    role={"group"}
-                                    rounded={"lg"}
-                                    overflowY='auto'
-                                    maxHeight={800}
-                                    zIndex={1}
-                                >
-                                    <DraftPickDataTable
-                                        picks={data.picks}
-                                        includedDrafts={includedDrafts}
-                                        includedPositions={[pos]}
-                                    />
-                                </Box>
-                            </GridItem>
-                        )
-                    }
+					if (
+						data.picks.filter((pick: DraftPick) => {
+							return pick.metadata.position == pos
+						}).length > 0
+					) {
+						return (
+							<GridItem
+								rowSpan={2}
+								colSpan={4}
+								rounded={"lg"}
+								overflowY='auto'
+								padding={3}
+								maxHeight={600}
+								zIndex={1}
+								key={`position_table_${pos}`}
+							>
+								<h1>{pos}</h1>
+								<DraftPickDataTable
+									picks={data.picks}
+									includedDrafts={includedDrafts}
+									includedPositions={[pos]}
+								/>
+							</GridItem>
+						)
+					}
 				})}
 			</Grid>
 		</div>

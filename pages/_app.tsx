@@ -1,11 +1,10 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
+import type { AppProps } from 'next/app'
+import { useState } from 'react'
 import { Context } from '../contexts/Context'
 import { LeaguesContext } from '../contexts/LeaguesContext'
-import { useState } from 'react'
-import Overview from './user/[username]/overview'
-import { LeagueSettings } from '../interfaces/sleeper_api/LeagueSettings'
+import '../styles/globals.css'
+import customTheme from '../theme/index'
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -13,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [leagueContext, setLeagueContext] = useState({});
 
   return <LeaguesContext.Provider value={[leagueContext, setLeagueContext]}><Context.Provider value={[context, setContext]}>
-      <ChakraProvider><Component {...pageProps} /></ChakraProvider>
+      <ChakraProvider theme={customTheme}><Component {...pageProps} /></ChakraProvider>
     </Context.Provider>
     </LeaguesContext.Provider>
 }
