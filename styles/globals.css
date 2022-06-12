@@ -32,6 +32,12 @@ a {
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
+body {
+  margin: 0;
+  height: 100%; 
+  overflow: hidden;
+}
+
 .DraftPickCardH1 {
   font-style: normal;
   font-weight: 500;
@@ -109,4 +115,13 @@ a {
 
 .LB {
   background: rgba(174, 182, 252, 0.8)
+}
+
+.formContainer {
+  color: white;
+  visibility: visible;
+  background: #121212;
+  border-radius: 5px;
+  padding: 20px;
+  opacity: .99;
 }

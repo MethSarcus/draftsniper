@@ -5,13 +5,15 @@ import { extendTheme } from '@chakra-ui/react'
 import theme from './theme'
 
 // Component style overrides
-import Button from './components/button'
+import Card from './components/CardTheme'
+import DraftPickCard from './components/DarftPickCardTheme'
 
 const overrides = {
   theme,
   // Other foundational style overrides go here
   components: {
-    // Other components go here
+    Card,
+    DraftPickCard,
   },
 }
 
