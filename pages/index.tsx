@@ -3,10 +3,11 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import React, { useState, useRef } from "react";
-import { Box, Input } from "@chakra-ui/react";
+import { Box, Heading, Input, Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import Image from "next/image";
 import bg from "../images/glitchedbg.png";
+import Card from "../components/Card";
 
 const Home: NextPage = () => {
   const [text, setText] = useState("");
@@ -44,21 +45,49 @@ const Home: NextPage = () => {
             alt="Picture of the author"
             placeholder="blur" // Optional blur-up while loading
           />
-<div className="formContainer">
-          <Box zIndex={1} boxShadow={3}>
-            
-            <form className="splashF" onSubmit={onFormSubmit}>
-              <Input
-                placeholder="LeagueID or Username"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              />
-              <Button type="submit" colorScheme="blue" marginTop={2}>
-                Submit
-              </Button>
-            </form>
-            
-          </Box>
+          <div className="formContainer">
+            <Box
+              display="inline-block"
+              backgroundColor="#121212"
+              opacity={1}
+              p={10}
+              overflow="hidden"
+              borderRadius={10}
+            >
+              <Heading
+                display="flex"
+                flexDirection="row"
+                justifyContent="center"
+                alignItems="center"
+                size="2xl"
+                color="#FFFFFF"
+                pb={30}
+              >
+                Draft Sniper
+              </Heading>
+              <form onSubmit={onFormSubmit}>
+                <Input
+                  variant="outline"
+                  placeholder="Username"
+                  size="lg"
+                  backgroundColor="blackAlpha.500"
+                  display="inline-block"
+                  mt={3}
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                />
+                <Button
+                  variant="solid"
+                  size="md"
+                  type="submit"
+                  backgroundColor="#6200EE"
+                  color="#000000"
+                  mt={2}
+                >
+                  Submit
+                </Button>
+              </form>
+            </Box>
           </div>
         </div>
       </main>
