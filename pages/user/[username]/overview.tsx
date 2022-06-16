@@ -2,29 +2,13 @@ import { useRouter } from "next/router"
 import useSWR from "swr"
 import axios from "axios"
 import {
-	Grid,
-	GridItem,
-	Box,
-	Table,
-	TableCaption,
-	TableContainer,
-	Tbody,
-	Td,
-	Tfoot,
-	Th,
-	Thead,
-	Tr,
-	Button,
 	Container,
 } from "@chakra-ui/react"
 import LeagueCarousel from "../../../components/LeagueCarousel"
-import PositionDraftTable from "../../../components/PositionDraftTable"
 import { useContext } from "react"
 import { Context } from "../../../contexts/Context"
 import { LeaguesContext } from "../../../contexts/LeaguesContext"
 import { LeagueSettings } from "../../../interfaces/sleeper_api/LeagueSettings"
-import AllPicksTable from "../../../components/AllPicksTable"
-import FilterablePickTable from "../../../components/FilterablePickTable"
 import DraftTableGroup from "../../../components/DraftTableGroup"
 
 const Overview = () => {
@@ -58,13 +42,15 @@ const Overview = () => {
 			<h1>{router.query.username}</h1>
 			<h2>{context}</h2>
 
-			<Container  maxW={'container.xl'} maxHeight={400}>
+			<Container maxW={"container.xl"}>
+				<h1>Leagues</h1>
 				<LeagueCarousel
 					leagues={data.filter((league: LeagueSettings) => {
 						return league.status != "pre_draft"
 					})}
 				></LeagueCarousel>
 			</Container>
+
 			<DraftTableGroup
 				leagues={data.filter((league: LeagueSettings) => {
 					return league.status != "pre_draft"

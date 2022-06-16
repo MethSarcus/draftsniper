@@ -32,11 +32,12 @@ const LeagueCard = (props: MyProps) => {
   const settingsString = getLeagueReceptionScoringType(props.league)
 
 	return (
-		<Stat>
+		<Stat size={'xs'}>
 			<Box
-				p={6}
+      boxSize={'xs'}
+				p={4}
 				m={2}
-				maxH={400}
+				maxH={150}
 				bg={"white.800"}
 				boxShadow={"md"}
 				rounded={"lg"}

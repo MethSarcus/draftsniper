@@ -19,7 +19,7 @@ const DraftBoard = () => {
 		<div>
 			<h1>DraftBoard: {router.query.draft}</h1>
 			<div>
-				<Grid h='200px' templateColumns='repeat(12, 1fr)' gap={1}>
+				<Grid templateColumns='repeat(12, 1fr)' gap={1}>
 					{data.map((pick: DraftPick) => {
 						return (
 							<GridItem
