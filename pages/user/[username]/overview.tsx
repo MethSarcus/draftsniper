@@ -15,6 +15,7 @@ import {
 	Thead,
 	Tr,
 	Button,
+	Container,
 } from "@chakra-ui/react"
 import LeagueCarousel from "../../../components/LeagueCarousel"
 import PositionDraftTable from "../../../components/PositionDraftTable"
@@ -57,13 +58,13 @@ const Overview = () => {
 			<h1>{router.query.username}</h1>
 			<h2>{context}</h2>
 
-			<Box maxHeight={400}>
+			<Container  maxW={'container.xl'} maxHeight={400}>
 				<LeagueCarousel
 					leagues={data.filter((league: LeagueSettings) => {
 						return league.status != "pre_draft"
 					})}
 				></LeagueCarousel>
-			</Box>
+			</Container>
 			<DraftTableGroup
 				leagues={data.filter((league: LeagueSettings) => {
 					return league.status != "pre_draft"

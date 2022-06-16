@@ -51,6 +51,7 @@ const Home: NextPage = () => {
               display="inline-block"
               backgroundColor="#121212"
               opacity={1}
+              boxShadow={5}
               p={10}
               overflow="hidden"
               borderRadius={10}
