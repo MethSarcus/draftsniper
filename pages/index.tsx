@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { useRouter } from "next/router";
 import React, { useState, useRef } from "react";
-import { Box, Heading, Input, Text } from "@chakra-ui/react";
+import { Box, Container, Heading, Input, Text } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import Image from "next/image";
 import bg from "../images/glitchedbg.png";
@@ -38,11 +38,12 @@ const Home: NextPage = () => {
             <h1>Draft Sniper</h1>
           </header>
           <Image
+            className="bgImage"
             src={bg}
             objectFit={"cover"}
             layout={"fill"}
             z-index={0}
-            alt="Picture of the author"
+            alt="Picture of draftboard"
             placeholder="blur" // Optional blur-up while loading
           />
           <div className="formContainer">
@@ -91,8 +92,6 @@ const Home: NextPage = () => {
           </div>
         </div>
       </main>
-
-      <footer className={styles.footer}></footer>
     </div>
   );
 };

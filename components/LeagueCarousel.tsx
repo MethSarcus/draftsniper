@@ -1,4 +1,4 @@
-import { StatGroup } from '@chakra-ui/react';
+import { Flex, StatGroup } from '@chakra-ui/react';
 import React from 'react';
 import { LeagueSettings } from '../interfaces/sleeper_api/LeagueSettings';
 import LeagueCard from './LeagueCard';
@@ -12,7 +12,7 @@ export default class LeagueCarousel extends React.Component<MyProps> {
     render() {
         return (
             <StatGroup>{this.props.leagues.map((league) => {
-            return <LeagueCard key={league.league_id} leagueName={league.name} leagueNumTeams={league.total_rosters.toString()} draftState={league.status} draftId={league.draft_id}></LeagueCard>
+            return <LeagueCard key={league.league_id} league={league}></LeagueCard>
         })}</StatGroup>
         )
     }
