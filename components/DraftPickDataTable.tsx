@@ -11,6 +11,8 @@ import { useContext } from "react"
 import useSWR from "swr"
 import { Context } from "../contexts/Context"
 import axios from "axios"
+import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
+import { SleeperUser } from "../interfaces/sleeper_api/SleeperUser"
 
 type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[] }
 
@@ -20,6 +22,7 @@ interface DataRow {
 	player: string
 	picked_by: string
 	draft_id: string
+	league: string
 }
 
 const columns: TableColumn<DataRow>[] = [
@@ -67,6 +70,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 
 	return (
 		<DataTable
+		theme="dark"
 			columns={columns}
 			defaultSortFieldId={1}
 			data={props.picks
@@ -91,7 +95,24 @@ function formatPickForTable(pick: DraftPick): DataRow {
 		player: pick.metadata.first_name + " " + pick.metadata.last_name,
 		picked_by: pick.picked_by,
 		draft_id: pick.draft_id,
+		league: pick.draft_id
 	}
+}
+
+function getLeagueFromDraftId(leagues: LeagueSettings[], draftId: string) {
+	return leagues.forEach((league) => {
+		if(league.draft_id == draftId) {
+			return league.name
+		}
+	})
+}
+
+function getUsernameFromUserId(users: SleeperUser[], userId: string) {
+	return users.forEach((user) => {
+		if(user.user_id == userId) {
+			return user.display_name
+		}
+	})
 }
 
 export default DraftPickDataTable

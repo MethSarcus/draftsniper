@@ -15,7 +15,7 @@ export default class DraftPickCard extends React.Component<MyProps> {
         className={`DraftPickCardBackground ${this.props.pick.metadata.position}`}
       >
         <p className="DraftPickCardH1">
-          {this.props.pick.metadata.first_name}{" "}
+          {this.props.pick.metadata.first_name.charAt(0)}{". "}
           {this.props.pick.metadata.last_name}
         </p>
         <p className="DraftPickCardH2">

@@ -49,13 +49,11 @@ const Overview = () => {
 						return league.status != "pre_draft"
 					})}
 				></LeagueCarousel>
-			</Container>
-
 			<DraftTableGroup
 				leagues={data.filter((league: LeagueSettings) => {
 					return league.status != "pre_draft"
 				})}
-			/>
+			/></Container>
 		</div>
 	)
 }
