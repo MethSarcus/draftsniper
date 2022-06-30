@@ -3,18 +3,13 @@ import DataTable, {
 	TableColumn,
 } from "react-data-table-component"
 import {
-	CombinedDraftPick,
 	DraftPick,
 } from "../interfaces/sleeper_api/DraftPick"
 import React from "react"
-import { useContext } from "react"
-import useSWR from "swr"
-import { Context } from "../contexts/Context"
-import axios from "axios"
 import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
 import { SleeperUser } from "../interfaces/sleeper_api/SleeperUser"
 
-type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[] }
+type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[], focusedUser: string }
 
 interface DataRow {
 	id: string
@@ -39,7 +34,6 @@ const columns: TableColumn<DataRow>[] = [
 ]
 
 const DraftPickDataTable = (props: MyProps): JSX.Element => {
-	const [context, setContext] = useContext(Context)
 	// data provides access to your row data
 
 	const ExpandedComponent: React.FC<ExpanderComponentProps<DataRow>> = ({
@@ -57,7 +51,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 	}
 	const conditionalRowStyles = [
 		{
-			when: (row: any) => row.id.includes(context),
+			when: (row: any) => row.id.includes(props.focusedUser),
 			style: {
 				backgroundColor: "green",
 				color: "white",

@@ -15,9 +15,8 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import router from "next/router";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
-import { Context } from "../contexts/Context";
 import { DraftPick } from "../interfaces/sleeper_api/DraftPick";
 import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings";
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions";
@@ -27,16 +26,15 @@ import FilterablePickTable from "./FilterablePickTable";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-type MyProps = { leagues: LeagueSettings[] };
+type MyProps = { leagues: LeagueSettings[], user_id: string };
 
 const DraftTableGroup = (props: MyProps) => {
-  const [context, setContext] = useContext(Context);
   const [includedDrafts, setIncludedDrafts] = useState(
     props.leagues.map((league) => league.draft_id)
   );
   const positions = getAllLeaguePositions(props.leagues);
 
-  const { data, error } = useSWR(`/api/picks/${context}`, fetcher);
+  const { data, error } = useSWR(`/api/picks/${props.user_id}`, fetcher);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
@@ -54,7 +52,7 @@ const DraftTableGroup = (props: MyProps) => {
           <Wrap gap={1}>
             {data.picks
               .filter((pick: DraftPick) => {
-                return pick.picked_by == context;
+                return pick.picked_by == props.user_id;
               })
               .sort((n1: DraftPick, n2: DraftPick) => n1.pick_no > n2.pick_no)
               .map((pick: DraftPick) => {
@@ -100,6 +98,7 @@ const DraftTableGroup = (props: MyProps) => {
                       picks={data.picks}
                       includedDrafts={includedDrafts}
                       includedPositions={[pos]}
+                      focusedUser={props.user_id}
                     />
                   </Box>
                 );
