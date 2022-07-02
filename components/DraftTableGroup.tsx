@@ -66,7 +66,7 @@ const DraftTableGroup = (props: MyProps) => {
         </TabPanel>
 
         <TabPanel>
-          <FilterablePickTable leagues={props.leagues} picks={data.picks} />
+          <FilterablePickTable leagues={props.leagues} picks={data.picks} focusedUser={props.user_id} />
         </TabPanel>
 
         <TabPanel>

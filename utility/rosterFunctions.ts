@@ -131,7 +131,7 @@ export const getVariablePPR = (scoring_settings: ScoringSettings) => {
 	}
 	const positionRec = [scoring_settings.bonus_rec_rb, scoring_settings.bonus_rec_wr, scoring_settings.bonus_rec_te].filter((set) => {return set != null && set != undefined}).reduce((partialSum, a) => partialSum! + a!, 0);
 	if (varRec && varRec > 0) {
-		returnString += "Variable PPR"
+		returnString += "V-PPR"
 		if (positionRec && positionRec > 0) {
 			returnString += " " + bonusPos + " Prem"
 		}
