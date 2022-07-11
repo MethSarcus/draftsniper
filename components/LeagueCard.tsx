@@ -34,20 +34,32 @@ const LeagueCard = (props: MyProps) => {
   const settingsString = getLeagueReceptionScoringType(props.league);
 
   return (
-      <Stack spacing={1} direction='column' boxShadow={'lg'} p='3' rounded={'md'}>
-        <Text as='b' fontSize="sm">{props.league.name}</Text>
-		<Stack direction={'row'}>
-			<WrapItem as={'text'} fontSize='xs'>{settingsString.pprString}</WrapItem>
-			<Spacer/>
-			<WrapItem as={'text'} fontSize='xs'>{settingsString.numQbString}</WrapItem>
-			<Spacer/>
-			<WrapItem as={'text'} fontSize='xs'>{settingsString.leagueTypeString}</WrapItem>
-
-        </Stack>
-		<Button onClick={onSub} variant="outline" colorScheme="teal" size="xs">
-        View Draft
-      </Button>
+    <Stack spacing={1} direction="column" boxShadow={"lg"} p="3" rounded={"md"} bg='brand.surface' textColor={'brand.on_surface'}>
+      <Text as="b" fontSize="sm">
+        {props.league.name}
+      </Text>
+      <Stack direction={"row"}>
+        <Text fontSize="xs">
+          {settingsString.pprString}
+        </Text>
+        <Spacer />
+        <Text fontSize="xs">
+          {settingsString.numQbString}
+        </Text>
+        <Spacer />
+        <Text fontSize="xs">
+          {settingsString.leagueTypeString}
+        </Text>
       </Stack>
+      <Stack spacing={1} direction="row">
+        <Button onClick={onSub} variant="outline" colorScheme="teal" size="xs">
+          View Draft
+        </Button>
+		<Button onClick={onSub} variant="outline" colorScheme="teal" size="xs">
+          League Info
+        </Button>
+      </Stack>
+    </Stack>
   );
 };
 

@@ -1,10 +1,12 @@
 import {
   Box,
   Center,
+  Flex,
   Grid,
   GridItem,
   Heading,
   SimpleGrid,
+  Stack,
   Tab,
   TabList,
   TabPanel,
@@ -39,12 +41,12 @@ const DraftTableGroup = (props: MyProps) => {
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   return (
-    <Tabs variant="soft-rounded" isFitted size={"md"}>
+    <Tabs variant="soft-rounded" p={2} isFitted size={"md"} borderRadius={5} background="brand.surface">
       <TabList>
-        <Tab>{router.query.username} Picks</Tab>
-        <Tab>All Picks</Tab>
-        <Tab>Inferred Rankings</Tab>
-        <Tab>Average Rankings</Tab>
+        <Tab textColor={"brand.on_surface"}>{router.query.username} Picks</Tab>
+        <Tab textColor={"brand.on_surface"}>All Picks</Tab>
+        <Tab textColor={"brand.on_surface"}>Inferred Rankings</Tab>
+        <Tab textColor={"brand.on_surface"}>Average Rankings</Tab>
       </TabList>
 
       <TabPanels>
@@ -74,7 +76,7 @@ const DraftTableGroup = (props: MyProps) => {
         </TabPanel>
 
         <TabPanel>
-          <Wrap spacing={2}>
+          <Stack direction={"row"} spacing={2}>
             {positions.map((pos) => {
               if (
                 data.picks.filter((pick: DraftPick) => {
@@ -104,7 +106,7 @@ const DraftTableGroup = (props: MyProps) => {
                 );
               }
             })}
-          </Wrap>
+          </Stack>
         </TabPanel>
       </TabPanels>
     </Tabs>

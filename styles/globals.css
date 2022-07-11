@@ -126,3 +126,7 @@ a {
   padding: 20px;
   opacity: .99;
 }
+
+* + * {
+	margin-top: 1em;
+}

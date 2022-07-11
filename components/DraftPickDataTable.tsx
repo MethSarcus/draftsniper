@@ -77,7 +77,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 			conditionalRowStyles={conditionalRowStyles}
 			expandableRows
 			expandableRowsComponent={ExpandedComponent}
-			dense
+			dense={true}
 		/>
 	)
 }
