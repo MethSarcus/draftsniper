@@ -20,6 +20,10 @@ import {
 	Code,
 	PopoverFooter,
 	StackItem,
+	ButtonGroup,
+	Tag,
+	HStack,
+	Badge,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import React from "react"
@@ -31,6 +35,7 @@ import {
 	getLeagueReceptionScoringType,
 	hasPremiumScoring,
 	hasVariablePPR,
+	POSITION,
 } from "../utility/rosterFunctions"
 
 type MyProps = {
@@ -60,7 +65,7 @@ const LeagueCard = (props: MyProps) => {
 			boxShadow={"lg"}
 			p='3'
 			rounded={"md"}
-			bg='brand.surface'
+			bg='surface_google.1'
 			textColor={"brand.on_surface"}
 		>
 			<Text as='b' fontSize='sm'>
@@ -73,30 +78,33 @@ const LeagueCard = (props: MyProps) => {
 				<Spacer />
 				<Text fontSize='xs'>{settingsString.leagueTypeString}</Text>
 			</Stack>
-			<Wrap spacing={1} direction='row'>
+			<ButtonGroup spacing={1}>
 				<Button
 					onClick={onSub}
 					variant='outline'
-					colorScheme='teal'
+					colorScheme='primary_google'
 					size='xs'
 				>
 					View Draft
 				</Button>
 				<Popover trigger='hover' placement='right'>
 					<PopoverTrigger>
-						<Button variant='outline' colorScheme='blue' size='xs'>
+						<Button as={"text"} variant='ghost' colorScheme='secondary_google' size='xs'>
 							League Info
 						</Button>
 					</PopoverTrigger>
-					<PopoverContent display='flex' bg={"brand.surface"}>
+					<PopoverContent display='flex' bg={"surface_google.2"}>
+					<PopoverArrow bg='surface_google.2' />
 						<Stack direction={"row"} spacing={2}>
 							<StackItem>
 								<PopoverHeader>Positions</PopoverHeader>
 								<PopoverBody>
+								<Stack>
 									{formatRosterForPopover(
 										props.league
 											.roster_positions as string[]
 									)}
+									</Stack>
 								</PopoverBody>
 							</StackItem>
 							<StackItem>
@@ -110,9 +118,10 @@ const LeagueCard = (props: MyProps) => {
 								</PopoverBody>
 							</StackItem>
 						</Stack>
+						{hasVariablePPR(props.league.scoring_settings) && <PopoverFooter>{formatVarPPR(props.league.scoring_settings)}</PopoverFooter>}
 					</PopoverContent>
 				</Popover>
-			</Wrap>
+			</ButtonGroup>
 		</Stack>
 	)
 }
@@ -130,7 +139,7 @@ function formatRosterForPopover(rosterPositions: string[]): JSX.Element[] {
 
 	let textArr: JSX.Element[] = []
 	positionCounts.forEach((value, key) => {
-		textArr.push(<Text as='p'>{key + ": " + value}</Text>)
+		textArr.push(<Badge bg={"position." + {key}} textAlign={"center"} py={"2px"} className={key} fontSize='0.5em'>{key + ": " + value}</Badge>)
 	})
 
 	return textArr
@@ -141,28 +150,34 @@ function formatScoringForPopover(
 ): JSX.Element[] {
 	let textArr: JSX.Element[] = []
 
-	textArr.push(<Text as='p'>Int: {scoringSettings.pass_int}</Text>)
-	textArr.push(<Text as={"p"}>Sack: {scoringSettings.sack}</Text>)
-	textArr.push(<Text as={"p"}>Passing TD: {scoringSettings.pass_td}</Text>)
-	textArr.push(<Text>Receiving TD: {scoringSettings.rec_td}</Text>)
-	textArr.push(<Text>PPR: {scoringSettings.rec}</Text>)
-	if (hasVariablePPR(scoringSettings)) {
-		textArr.push(<Text as='h6'>Variable PPR</Text>)
-		textArr.push(<Text>0-5 yards: {scoringSettings.rec_0_4}</Text>)
-		textArr.push(<Text>5-9 yards: {scoringSettings.rec_5_9}</Text>)
-		textArr.push(<Text>10-19 yards: {scoringSettings.rec_10_19}</Text>)
-		textArr.push(<Text>20-29 yards: {scoringSettings.rec_20_29}</Text>)
-		textArr.push(<Text>30-39 yards: {scoringSettings.rec_30_39}</Text>)
-		textArr.push(<Text>40+ yards: {scoringSettings.rec_40p}</Text>)
-	}
+	textArr.push(<Text><Code>Int: {scoringSettings.pass_int}</Code></Text>)
+	textArr.push(<Text><Code>Sack: {scoringSettings.sack}</Code></Text>)
+	textArr.push(<Text><Code>Passing TD: {scoringSettings.pass_td}</Code></Text>)
+	textArr.push(<Text><Code>Receiving TD: {scoringSettings.rec_td}</Code></Text>)
+	textArr.push(<Text><Code>PPR: {scoringSettings.rec}</Code></Text>)
+
+	
 
 	if (hasPremiumScoring(scoringSettings)) {
-		textArr.push(<Text>RB Bonus: {scoringSettings.bonus_rec_rb}</Text>)
-		textArr.push(<Text>WR Bonus: {scoringSettings.bonus_rec_wr}</Text>)
-		textArr.push(<Text>TE Bonus: {scoringSettings.bonus_rec_te}</Text>)
+		textArr.push(<Text><Code>RB Bonus: {scoringSettings.bonus_rec_rb}</Code></Text>)
+		textArr.push(<Text><Code>WR Bonus: {scoringSettings.bonus_rec_wr}</Code></Text>)
+		textArr.push(<Text><Code>TE Bonus: {scoringSettings.bonus_rec_te}</Code></Text>)
 	}
+	
 
 	return textArr
+}
+
+function formatVarPPR(scoringSettings: ScoringSettings) {
+		let varPPR = []
+		varPPR.push(<Text as='h6'>Variable PPR</Text>)
+		varPPR.push(<Text><Code>0-5 yards: {scoringSettings.rec_0_4}</Code></Text>)
+		varPPR.push(<Text><Code>5-9 yards: {scoringSettings.rec_5_9}</Code></Text>)
+		varPPR.push(<Text><Code>10-19 yards: {scoringSettings.rec_10_19}</Code></Text>)
+		varPPR.push(<Text><Code>20-29 yards: {scoringSettings.rec_20_29}</Code></Text>)
+		varPPR.push(<Text><Code>30-39 yards: {scoringSettings.rec_30_39}</Code></Text>)
+		varPPR.push(<Text><Code>40+ yards: {scoringSettings.rec_40p}</Code></Text>)
+		return varPPR
 }
 
 export default LeagueCard
