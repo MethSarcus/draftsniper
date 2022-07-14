@@ -1,4 +1,7 @@
-import { LeagueSettings, ScoringSettings } from "../interfaces/sleeper_api/LeagueSettings"
+import {
+	LeagueSettings,
+	ScoringSettings,
+} from "../interfaces/sleeper_api/LeagueSettings"
 
 export const getAllLeaguePositions = (leagues: LeagueSettings[]) => {
 	var positions: POSITION[][] = []
@@ -59,7 +62,7 @@ export const getRosterSlotPositions = (slotId: string) => {
 		}
 
 		default: {
-			return [];
+			return []
 		}
 	}
 }
@@ -76,14 +79,17 @@ export enum POSITION {
 	DB = "DB",
 }
 
-export enum FLEXES {
-
-}
+export enum FLEXES {}
 
 //A function that takes in a sleeper scoring settings json object and returns what type of receiving points are given
-export const getLeagueReceptionScoringType = (leagueSettings: LeagueSettings) => {
+export const getLeagueReceptionScoringType = (
+	leagueSettings: LeagueSettings
+) => {
 	const ppr = getVariablePPR(leagueSettings.scoring_settings)
-	const qbNum = leagueSettings.roster_positions?.filter((pos) => {return (pos == "SUPER_FLEX" || pos == POSITION.QB)}).length + "QB"
+	const qbNum =
+		leagueSettings.roster_positions?.filter((pos) => {
+			return pos == "SUPER_FLEX" || pos == POSITION.QB
+		}).length + "QB"
 	var leagueType = ""
 	switch (leagueSettings.settings.type) {
 		case 0: {
@@ -106,7 +112,7 @@ export const getLeagueReceptionScoringType = (leagueSettings: LeagueSettings) =>
 	const returnObj = {
 		pprString: ppr,
 		numQbString: qbNum,
-		leagueTypeString: leagueType
+		leagueTypeString: leagueType,
 	}
 
 	return returnObj
@@ -116,20 +122,51 @@ export const getLeagueReceptionScoringType = (leagueSettings: LeagueSettings) =>
 export const getVariablePPR = (scoring_settings: ScoringSettings) => {
 	var returnString = ""
 	var bonusPos = ""
-	const varRec = [scoring_settings.rec_0_4,scoring_settings.rec_5_9, scoring_settings.rec_10_19, scoring_settings.rec_20_29, scoring_settings.rec_30_39,  scoring_settings.bonus_rec_rb, scoring_settings.rec_0_4, scoring_settings.rec_0_4].filter((set) => {return set != null && set != undefined}).reduce((partialSum, a) => partialSum! + a!, 0);
+	const varRec = [
+		scoring_settings.rec_0_4,
+		scoring_settings.rec_5_9,
+		scoring_settings.rec_10_19,
+		scoring_settings.rec_20_29,
+		scoring_settings.rec_30_39,
+		scoring_settings.bonus_rec_rb,
+		scoring_settings.bonus_rec_wr,
+		scoring_settings.bonus_rec_te,
+		scoring_settings.rec_40p
+	]
+		.filter((set) => {
+			return set != null && set != undefined
+		})
+		.reduce((partialSum, a) => partialSum! + a!, 0)
 
-	if (scoring_settings.bonus_rec_rb != null && scoring_settings.bonus_rec_rb > 0) {
+	if (
+		scoring_settings.bonus_rec_rb != null &&
+		scoring_settings.bonus_rec_rb > 0
+	) {
 		bonusPos += "RB "
 	}
 
-	if (scoring_settings.bonus_rec_wr != null && scoring_settings.bonus_rec_wr > 0) {
+	if (
+		scoring_settings.bonus_rec_wr != null &&
+		scoring_settings.bonus_rec_wr > 0
+	) {
 		bonusPos += "WR "
 	}
 
-	if (scoring_settings.bonus_rec_te != null && scoring_settings.bonus_rec_te > 0) {
+	if (
+		scoring_settings.bonus_rec_te != null &&
+		scoring_settings.bonus_rec_te > 0
+	) {
 		bonusPos += "TE"
 	}
-	const positionRec = [scoring_settings.bonus_rec_rb, scoring_settings.bonus_rec_wr, scoring_settings.bonus_rec_te].filter((set) => {return set != null && set != undefined}).reduce((partialSum, a) => partialSum! + a!, 0);
+	const positionRec = [
+		scoring_settings.bonus_rec_rb,
+		scoring_settings.bonus_rec_wr,
+		scoring_settings.bonus_rec_te,
+	]
+		.filter((set) => {
+			return set != null && set != undefined
+		})
+		.reduce((partialSum, a) => partialSum! + a!, 0)
 	if (varRec && varRec > 0) {
 		returnString += "V-PPR"
 		if (positionRec && positionRec > 0) {
@@ -151,6 +188,50 @@ export const getVariablePPR = (scoring_settings: ScoringSettings) => {
 		}
 
 		return returnString
+	}
+}
 
+//Returns true if any position scores extra points for receptions 
+export const hasPremiumScoring = (scoring_settings: ScoringSettings) => {
+	if (
+		scoring_settings.bonus_rec_rb != null &&
+		scoring_settings.bonus_rec_rb > 0
+	) {
+		return true
+	} else if (
+		scoring_settings.bonus_rec_wr != null &&
+		scoring_settings.bonus_rec_wr > 0
+	) {
+		return true
+	} else if (
+		scoring_settings.bonus_rec_te != null &&
+		scoring_settings.bonus_rec_te > 0
+	) {
+		return true
+	} else {
+		return false
+	}
+}
+
+
+//returns true if points are different based on length of reception
+export const hasVariablePPR = (scoring_settings: ScoringSettings) => {
+	const varRec = [
+		scoring_settings.rec_0_4,
+		scoring_settings.rec_5_9,
+		scoring_settings.rec_10_19,
+		scoring_settings.rec_20_29,
+		scoring_settings.rec_30_39,
+		scoring_settings.rec_40p
+	]
+		.filter((set) => {
+			return set != null && set != undefined
+		})
+		.reduce((partialSum, a) => partialSum! + a!, 0)
+
+	if (varRec && varRec > 0) {
+		return true
+	} else {
+		return false
 	}
 }

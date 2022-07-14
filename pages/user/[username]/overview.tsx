@@ -39,7 +39,7 @@ const Overview = () => {
         </Box>
 
         <Container maxW={"container.xl"}>
-          <h1>Leagues</h1>
+          <Box as="h1" color={"brand.on_background"}>Leagues</Box>
           <LeagueCarousel
             leagues={leaguesData.filter((league: LeagueSettings) => {
               return league.status != "pre_draft";

@@ -41,8 +41,8 @@ const DraftTableGroup = (props: MyProps) => {
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   return (
-    <Tabs variant="soft-rounded" p={2} isFitted size={"md"} borderRadius={5} background="brand.surface">
-      <TabList>
+    <Tabs variant="soft-rounded" p={1} mt={4} isFitted size={"md"} borderRadius={5} background="brand.surface">
+      <TabList mt={2} px={2}>
         <Tab textColor={"brand.on_surface"}>{router.query.username} Picks</Tab>
         <Tab textColor={"brand.on_surface"}>All Picks</Tab>
         <Tab textColor={"brand.on_surface"}>Inferred Rankings</Tab>
