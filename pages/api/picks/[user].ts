@@ -37,8 +37,14 @@ export default async function handler(
   const { user } = req.query;
   await runMiddleware(req, res, cors);
 
-  const picks = await loadPicks(user.toString());
-  res.status(200).json({ picks: picks.flat() });
+  if (user) {
+    const picks = await loadPicks(user.toString());
+    res.status(200).json({ picks: picks.flat() });
+  } else {
+    res.status(401).json({picks: []});
+  }
+
+  
 }
 
 // -------------------------------------------------------------------
