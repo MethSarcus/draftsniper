@@ -8,7 +8,7 @@ import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions"
 import DraftPickDataTable from "./DraftPickDataTable"
 
-type MyProps = { leagues: LeagueSettings[], picks: DraftPick[] }
+type MyProps = { leagues: LeagueSettings[], picks: DraftPick[], focusedUser: string }
 
 const FilterablePickTable = (props: MyProps) => {
 	const [includedDrafts, setIncludedDrafts] = useState(
@@ -102,6 +102,7 @@ const FilterablePickTable = (props: MyProps) => {
 				picks={props.picks}
 				includedDrafts={includedDrafts}
 				includedPositions={includedPositions}
+				focusedUser={props.focusedUser}
 			/>
 		</div>
 	)

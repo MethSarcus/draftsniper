@@ -49,7 +49,7 @@ const Home: NextPage = () => {
           <div className="formContainer">
             <Box
               display="inline-block"
-              backgroundColor="#121212"
+              bg={"brand.surface"}
               opacity={1}
               boxShadow={5}
               p={10}
@@ -72,7 +72,6 @@ const Home: NextPage = () => {
                   variant="outline"
                   placeholder="Username"
                   size="lg"
-                  backgroundColor="blackAlpha.500"
                   display="inline-block"
                   mt={3}
                   value={text}

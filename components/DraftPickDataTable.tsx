@@ -3,16 +3,13 @@ import DataTable, {
 	TableColumn,
 } from "react-data-table-component"
 import {
-	CombinedDraftPick,
 	DraftPick,
 } from "../interfaces/sleeper_api/DraftPick"
 import React from "react"
-import { useContext } from "react"
-import useSWR from "swr"
-import { Context } from "../contexts/Context"
-import axios from "axios"
+import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
+import { SleeperUser } from "../interfaces/sleeper_api/SleeperUser"
 
-type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[] }
+type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[], focusedUser: string }
 
 interface DataRow {
 	id: string
@@ -20,6 +17,7 @@ interface DataRow {
 	player: string
 	picked_by: string
 	draft_id: string
+	league: string
 }
 
 const columns: TableColumn<DataRow>[] = [
@@ -36,7 +34,6 @@ const columns: TableColumn<DataRow>[] = [
 ]
 
 const DraftPickDataTable = (props: MyProps): JSX.Element => {
-	const [context, setContext] = useContext(Context)
 	// data provides access to your row data
 
 	const ExpandedComponent: React.FC<ExpanderComponentProps<DataRow>> = ({
@@ -54,7 +51,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 	}
 	const conditionalRowStyles = [
 		{
-			when: (row: any) => row.id.includes(context),
+			when: (row: any) => row.id.includes(props.focusedUser),
 			style: {
 				backgroundColor: "green",
 				color: "white",
@@ -67,6 +64,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 
 	return (
 		<DataTable
+		theme="dark"
 			columns={columns}
 			defaultSortFieldId={1}
 			data={props.picks
@@ -79,7 +77,7 @@ const DraftPickDataTable = (props: MyProps): JSX.Element => {
 			conditionalRowStyles={conditionalRowStyles}
 			expandableRows
 			expandableRowsComponent={ExpandedComponent}
-			dense
+			dense={true}
 		/>
 	)
 }
@@ -91,7 +89,24 @@ function formatPickForTable(pick: DraftPick): DataRow {
 		player: pick.metadata.first_name + " " + pick.metadata.last_name,
 		picked_by: pick.picked_by,
 		draft_id: pick.draft_id,
+		league: pick.draft_id
 	}
+}
+
+function getLeagueFromDraftId(leagues: LeagueSettings[], draftId: string) {
+	return leagues.forEach((league) => {
+		if(league.draft_id == draftId) {
+			return league.name
+		}
+	})
+}
+
+function getUsernameFromUserId(users: SleeperUser[], userId: string) {
+	return users.forEach((user) => {
+		if(user.user_id == userId) {
+			return user.display_name
+		}
+	})
 }
 
 export default DraftPickDataTable

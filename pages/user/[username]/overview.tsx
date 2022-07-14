@@ -1,63 +1,60 @@
-import { useRouter } from "next/router"
-import useSWR from "swr"
-import axios from "axios"
-import {
-	Container,
-} from "@chakra-ui/react"
-import LeagueCarousel from "../../../components/LeagueCarousel"
-import { useContext } from "react"
-import { Context } from "../../../contexts/Context"
-import { LeaguesContext } from "../../../contexts/LeaguesContext"
-import { LeagueSettings } from "../../../interfaces/sleeper_api/LeagueSettings"
-import DraftTableGroup from "../../../components/DraftTableGroup"
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import axios from "axios";
+import { Box, Container } from "@chakra-ui/react";
+import LeagueCarousel from "../../../components/LeagueCarousel";
+import { LeagueSettings } from "../../../interfaces/sleeper_api/LeagueSettings";
+import DraftTableGroup from "../../../components/DraftTableGroup";
+import Navbar from "../../../components/Navbar";
 
 const Overview = () => {
-	const router = useRouter()
-	const [context, setContext] = useContext(Context)
-	const [leagueContext, setLeagueContext] = useContext(LeaguesContext)
+  const router = useRouter();
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+  const { data: userData, error: userError } = useSWR(
+    "https://api.sleeper.app/v1/user/" + router.query.username,
+    fetcher
+  );
 
-	const fetcher = (url: string) =>
-		axios
-			.get(url)
-			.then(function (res) {
-				setContext(res.data.user_id)
-				return axios.get(
-					"https://api.sleeper.app/v1/user/" +
-						res.data.user_id +
-						"/leagues/nfl/2022"
-				)
-			})
-			.then((res) => res.data)
+  const { data: leaguesData, error: leaguesError } = useSWR(
+    () =>
+      userData.user_id
+        ? "https://api.sleeper.app/v1/user/" +
+          userData.user_id +
+          "/leagues/nfl/2022"
+        : null,
+    fetcher
+  );
+  if (userError) return <div>Failed to load</div>;
+  if (!userData || !leaguesData) return <div>Loading...</div>;
+  console.log(userData);
+  return (
+    <Box bg={"brand.background"} w={"100%"}>
+      <Navbar></Navbar>
+      <Box>
+        <Box as="h1" color={"brand.on_background"}>
+          {router.query.username}
+        </Box>
+        <Box as="h2" color={"brand.on_background"}>
+          {userData.user_id}
+        </Box>
 
-	const { data, error } = useSWR(
-		"https://api.sleeper.app/v1/user/" + router.query.username,
-		fetcher
-	)
+        <Container maxW={"container.xl"}>
+          <Box as="h1" color={"brand.on_background"}>Leagues</Box>
+          <LeagueCarousel
+            leagues={leaguesData.filter((league: LeagueSettings) => {
+              return league.status != "pre_draft";
+            })}
+          ></LeagueCarousel>
+          <DraftTableGroup
+            leagues={leaguesData.filter((league: LeagueSettings) => {
+              return league.status != "pre_draft";
+            })}
+            user_id={userData.user_id}
+          />
+        </Container>
+      </Box>
+    </Box>
+  );
+};
 
-	if (error) return <div>Failed to load</div>
-	if (!data) return <div>Loading...</div>
-
-	return (
-		<div>
-			<h1>{router.query.username}</h1>
-			<h2>{context}</h2>
-
-			<Container maxW={"container.xl"}>
-				<h1>Leagues</h1>
-				<LeagueCarousel
-					leagues={data.filter((league: LeagueSettings) => {
-						return league.status != "pre_draft"
-					})}
-				></LeagueCarousel>
-			</Container>
-
-			<DraftTableGroup
-				leagues={data.filter((league: LeagueSettings) => {
-					return league.status != "pre_draft"
-				})}
-			/>
-		</div>
-	)
-}
-
-export default Overview
+export default Overview;
