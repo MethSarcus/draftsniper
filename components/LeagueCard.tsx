@@ -1,18 +1,8 @@
-import {
-  Button,
-  Text,
-  Stack,
-  Spacer,
-  ButtonGroup,
-} from "@chakra-ui/react";
+import { Button, Text, Stack, Spacer, ButtonGroup } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import {
-  LeagueSettings,
-} from "../interfaces/sleeper_api/LeagueSettings";
-import {
-  getLeagueReceptionScoringType,
-} from "../utility/rosterFunctions";
+import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings";
+import { getLeagueReceptionScoringType } from "../utility/rosterFunctions";
 import ScoringPopover from "./ScoringPopover";
 
 type MyProps = {

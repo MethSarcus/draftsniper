@@ -101,49 +101,60 @@ function formatScoringForPopover(
   scoringSettings: ScoringSettings
 ): JSX.Element[] {
   let textArr: JSX.Element[] = [];
-
-  textArr.push(
-    <Text>
-      <Code>Int: {scoringSettings.pass_int}</Code>
-    </Text>
-  );
-  textArr.push(
-    <Text>
-      <Code>Sack: {scoringSettings.sack}</Code>
-    </Text>
-  );
-  textArr.push(
-    <Text>
-      <Code>Passing TD: {scoringSettings.pass_td}</Code>
-    </Text>
-  );
-  textArr.push(
-    <Text>
-      <Code>Receiving TD: {scoringSettings.rec_td}</Code>
-    </Text>
-  );
   textArr.push(
     <Text>
       <Code>PPR: {scoringSettings.rec}</Code>
     </Text>
   );
 
+  textArr.push(
+    <Text>
+      <Code>Receiving TD: {scoringSettings.rec_td}</Code>
+    </Text>
+  );
+
+  textArr.push(
+    <Text>
+      <Code>Passing TD: {scoringSettings.pass_td}</Code>
+    </Text>
+  );
+
+  textArr.push(
+    <Text>
+      <Code>Int: {scoringSettings.pass_int}</Code>
+    </Text>
+  );
+  if (scoringSettings.pass_sack) {
+    textArr.push(
+        <Text>
+          <Code>Sack: {scoringSettings.pass_sack}</Code>
+        </Text>
+      );
+  }
+
+
   if (hasPremiumScoring(scoringSettings)) {
-    textArr.push(
-      <Text>
-        <Code>RB Bonus: {scoringSettings.bonus_rec_rb}</Code>
-      </Text>
-    );
-    textArr.push(
-      <Text>
-        <Code>WR Bonus: {scoringSettings.bonus_rec_wr}</Code>
-      </Text>
-    );
-    textArr.push(
-      <Text>
-        <Code>TE Bonus: {scoringSettings.bonus_rec_te}</Code>
-      </Text>
-    );
+    if (scoringSettings.bonus_rec_rb && scoringSettings.bonus_rec_rb > 0) {
+      textArr.push(
+        <Text>
+          <Code>RB Bonus: {scoringSettings.bonus_rec_rb}</Code>
+        </Text>
+      );
+    }
+    if (scoringSettings.bonus_rec_wr && scoringSettings.bonus_rec_wr > 0) {
+      textArr.push(
+        <Text>
+          <Code>WR Bonus: {scoringSettings.bonus_rec_wr}</Code>
+        </Text>
+      );
+    }
+    if (scoringSettings.bonus_rec_te && scoringSettings.bonus_rec_te > 0) {
+      textArr.push(
+        <Text>
+          <Code>TE Bonus: {scoringSettings.bonus_rec_te}</Code>
+        </Text>
+      );
+    }
   }
 
   return textArr;

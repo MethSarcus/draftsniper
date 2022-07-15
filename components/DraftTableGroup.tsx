@@ -28,7 +28,7 @@ import FilterablePickTable from "./FilterablePickTable";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-type MyProps = { leagues: LeagueSettings[], user_id: string };
+type MyProps = { leagues: LeagueSettings[]; user_id: string };
 
 const DraftTableGroup = (props: MyProps) => {
   const [includedDrafts, setIncludedDrafts] = useState(
@@ -41,7 +41,15 @@ const DraftTableGroup = (props: MyProps) => {
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
   return (
-    <Tabs variant="soft-rounded" p={1} mt={4} isFitted size={"md"} borderRadius={5} background="brand.surface">
+    <Tabs
+      variant="soft-rounded"
+      p={1}
+      mt={4}
+      isFitted
+      size={"md"}
+      borderRadius={5}
+      background="brand.surface"
+    >
       <TabList mt={2} px={2}>
         <Tab textColor={"brand.on_surface"}>{router.query.username} Picks</Tab>
         <Tab textColor={"brand.on_surface"}>All Picks</Tab>
@@ -68,7 +76,11 @@ const DraftTableGroup = (props: MyProps) => {
         </TabPanel>
 
         <TabPanel>
-          <FilterablePickTable leagues={props.leagues} picks={data.picks} focusedUser={props.user_id} />
+          <FilterablePickTable
+            leagues={props.leagues}
+            picks={data.picks}
+            focusedUser={props.user_id}
+          />
         </TabPanel>
 
         <TabPanel>
