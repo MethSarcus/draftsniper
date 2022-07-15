@@ -85,7 +85,6 @@ const overrides = {
       DL: "rgba(250, 153, 97, 0.8)",
       DB: "rgba(254, 160, 202, 0.8)",
       LB: "rgba(174, 182, 252, 0.8)",
-      FLEX: "linear-gradient(90deg, rgba(143,242,202,0.8) 0%, rgba(254,174,88,0.8) 50%, rgba(86,201,248,0.8) 100%)",
     },
     blank: {
       50: "",
