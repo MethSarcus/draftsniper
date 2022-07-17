@@ -42,7 +42,7 @@ const DraftCard = {
   // The default `size` or `variant` values
   defaultProps: {
     variant: "default",
-    size: 'md'
+    size: "md",
   },
 };
 
