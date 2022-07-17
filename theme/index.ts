@@ -8,6 +8,7 @@ import theme from "./theme";
 import Card from "./components/CardTheme";
 import DraftPickCard from "./components/DarftPickCardTheme";
 import PositionBadge from "./components/PositionBadge";
+import FlexPositionBadge from "./components/FlexPositionBadge";
 
 const overrides = {
   theme,
@@ -16,6 +17,7 @@ const overrides = {
     Card,
     DraftPickCard,
     PositionBadge,
+    FlexPositionBadge
   },
   colors: {
     primary: {

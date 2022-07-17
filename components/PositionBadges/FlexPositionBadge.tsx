@@ -1,12 +1,57 @@
-import { SimpleGrid, Box, Center } from "@chakra-ui/react"
+import {
+  SimpleGrid,
+  Box,
+  Center,
+  useStyleConfig,
+  HStack,
+} from "@chakra-ui/react";
 
-const SuperFlexBadge = () => {
-    return (<SimpleGrid width="40px" height="30px" columns={2} spacingX='1px' spacingY='1px'>
-    <Center fontSize={".6em"} bg='position.WR'>W</Center>
-    <Center fontSize={".6em"} bg='position.RB'>R</Center>
-    <Center fontSize={".6em"} bg='position.TE'>T</Center>
-    <Center fontSize={".6em"} bg='position.QB'>Q</Center>
-  </SimpleGrid>)
-}
+type MyProps = {
+  variant: string;
+  size: string;
+};
 
-export default SuperFlexBadge
+const FlexPositionBadge = (props: MyProps) => {
+  const { variant, size, ...rest } = props;
+  const styles = useStyleConfig("FlexPositionBadge", { variant, size });
+  let includedPositions = [];
+
+  switch (variant) {
+    case "SUPER_FLEX": {
+      includedPositions.push(<Center h={"50%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center h={"50%"} bg="position.RB">R</Center>);
+      includedPositions.push(<Center h={"50%"} bg="position.TE">T</Center>);
+      includedPositions.push(<Center h={"50%"} bg="position.QB">Q</Center>);
+      break;
+    }
+    case "REC_FLEX": {
+      includedPositions.push(<Center h={"100%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center h={"100%"} bg="position.TE">T</Center>);
+      break;
+    }
+    case "WRRB_FLEX": {
+      includedPositions.push(<Center h={"100%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center h={"100%"} bg="position.RB">R</Center>);
+      break;
+    }
+    case "IDP_FLEX": {
+      includedPositions.push(<Center h={"100%"} bg="position.DL">DL</Center>);
+      includedPositions.push(<Center h={"100%"} bg="position.DB">DB</Center>);
+      includedPositions.push(<Center h={"100%"} bg="position.LB">LB</Center>);
+      break;
+    }
+    case "FLEX": {
+      includedPositions.push(<Center h={"100%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center h={"100%"} bg="position.RB">R</Center>);
+      includedPositions.push(<Center h={"100%"} bg="position.TE">T</Center>);
+      break;
+    }
+  }
+  return (
+    <SimpleGrid __css={styles} {...rest}>
+      {includedPositions}
+    </SimpleGrid>
+  );
+};
+
+export default FlexPositionBadge;
