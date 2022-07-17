@@ -191,6 +191,7 @@ export const getVariablePPR = (scoring_settings: ScoringSettings) => {
   }
 };
 
+
 //Returns true if any position scores extra points for receptions
 export const hasPremiumScoring = (scoring_settings: ScoringSettings) => {
   if (

@@ -18,6 +18,7 @@ import {
   ScoringSettings,
 } from "../interfaces/sleeper_api/LeagueSettings";
 import { hasPremiumScoring, hasVariablePPR } from "../utility/rosterFunctions";
+import PositionBadge from "./PositionBadges/PositionBadge";
 
 type MyProps = {
   league: LeagueSettings;
@@ -58,6 +59,7 @@ const ScoringPopover = (props: MyProps) => {
             </PopoverBody>
           </StackItem>
         </Stack>
+        <PositionBadge variant="WR" size="sm"></PositionBadge>
         {hasVariablePPR(props.league.scoring_settings) && (
           <PopoverFooter>
             {formatVarPPR(props.league.scoring_settings)}
@@ -125,11 +127,11 @@ function formatScoringForPopover(
     </Text>
   );
   if (scoringSettings.pass_sack) {
-    textArr.push(
-        <Text>
-          <Code>Sack: {scoringSettings.pass_sack}</Code>
-        </Text>
-      );
+  textArr.push(
+    <Text>
+      <Code>Sack: {scoringSettings.pass_sack}</Code>
+    </Text>
+  );
   }
 
 

@@ -1,4 +1,11 @@
-import { Button, Text, Stack, Spacer, ButtonGroup } from "@chakra-ui/react";
+import {
+  Button,
+  Text,
+  Stack,
+  Spacer,
+  ButtonGroup,
+  Box,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings";
@@ -28,13 +35,15 @@ const LeagueCard = (props: MyProps) => {
       direction="column"
       boxShadow={"lg"}
       p="3"
+      alignContent={"center"}
+      alignItems={"center"}
       rounded={"md"}
       bg="surface_google.1"
       textColor={"brand.on_surface"}
     >
-      <Text as="b" fontSize="sm">
+      <Box as="b" fontSize="sm" textAlign={"center"}>
         {props.league.name}
-      </Text>
+      </Box>
       <Stack direction={"row"}>
         <Text fontSize="xs">{settingsString.pprString}</Text>
         <Spacer />

@@ -7,6 +7,7 @@ import theme from "./theme";
 // Component style overrides
 import Card from "./components/CardTheme";
 import DraftPickCard from "./components/DarftPickCardTheme";
+import PositionBadge from "./components/PositionBadge";
 
 const overrides = {
   theme,
@@ -14,6 +15,7 @@ const overrides = {
   components: {
     Card,
     DraftPickCard,
+    PositionBadge,
   },
   colors: {
     primary: {
@@ -85,6 +87,8 @@ const overrides = {
       DL: "rgba(250, 153, 97, 0.8)",
       DB: "rgba(254, 160, 202, 0.8)",
       LB: "rgba(174, 182, 252, 0.8)",
+      K: "#7988a1",
+      DEF: "#bd66ff"
     },
     blank: {
       50: "",
