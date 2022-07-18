@@ -9,16 +9,23 @@ import {
   PopoverHeader,
   PopoverBody,
   PopoverFooter,
+  Box,
   Text,
   Badge,
   Code,
+  HStack,
 } from "@chakra-ui/react";
 import {
   LeagueSettings,
   ScoringSettings,
 } from "../interfaces/sleeper_api/LeagueSettings";
-import { hasPremiumScoring, hasVariablePPR, POSITION } from "../utility/rosterFunctions";
+import {
+  hasPremiumScoring,
+  hasVariablePPR,
+  POSITION,
+} from "../utility/rosterFunctions";
 import PositionBadge from "./PositionBadges/PositionBadge";
+import FlexPositionBadge from "./PositionBadges/FlexPositionBadge";
 
 type MyProps = {
   league: LeagueSettings;
@@ -59,7 +66,6 @@ const ScoringPopover = (props: MyProps) => {
             </PopoverBody>
           </StackItem>
         </Stack>
-        <PositionBadge variant="WR" size="sm"></PositionBadge>
         {hasVariablePPR(props.league.scoring_settings) && (
           <PopoverFooter>
             {formatVarPPR(props.league.scoring_settings)}
@@ -85,20 +91,20 @@ function formatRosterForPopover(rosterPositions: string[]): JSX.Element[] {
   positionCounts.forEach((value, key) => {
     if (key in POSITION) {
       textArr.push(
+        <HStack>
+          <PositionBadge variant={key} size={"md"} />
+          <Text>x{value}</Text>
+        </HStack>
+      );
+    } else if (key != "BN") {
+      textArr.push(
+        <HStack>
+        <FlexPositionBadge variant={key} size={"md"}/>
+        <Text>x{value}</Text>
+      </HStack>
+        
+      );
     }
-    textArr.push(
-
-      PositionBadge
-      <Badge
-        bg={"position." + { key }}
-        textAlign={"center"}
-        py={"2px"}
-        className={key}
-        fontSize="0.5em"
-      >
-        {key + ": " + value}
-      </Badge>
-    );
   });
 
   return textArr;
@@ -132,13 +138,12 @@ function formatScoringForPopover(
     </Text>
   );
   if (scoringSettings.pass_sack) {
-  textArr.push(
-    <Text>
-      <Code>Sack: {scoringSettings.pass_sack}</Code>
-    </Text>
-  );
+    textArr.push(
+      <Text>
+        <Code>Sack: {scoringSettings.pass_sack}</Code>
+      </Text>
+    );
   }
-
 
   if (hasPremiumScoring(scoringSettings)) {
     if (scoringSettings.bonus_rec_rb && scoringSettings.bonus_rec_rb > 0) {
