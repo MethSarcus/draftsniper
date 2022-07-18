@@ -17,7 +17,7 @@ import {
   LeagueSettings,
   ScoringSettings,
 } from "../interfaces/sleeper_api/LeagueSettings";
-import { hasPremiumScoring, hasVariablePPR } from "../utility/rosterFunctions";
+import { hasPremiumScoring, hasVariablePPR, POSITION } from "../utility/rosterFunctions";
 import PositionBadge from "./PositionBadges/PositionBadge";
 
 type MyProps = {
@@ -83,7 +83,12 @@ function formatRosterForPopover(rosterPositions: string[]): JSX.Element[] {
 
   let textArr: JSX.Element[] = [];
   positionCounts.forEach((value, key) => {
+    if (key in POSITION) {
+      textArr.push(
+    }
     textArr.push(
+
+      PositionBadge
       <Badge
         bg={"position." + { key }}
         textAlign={"center"}
