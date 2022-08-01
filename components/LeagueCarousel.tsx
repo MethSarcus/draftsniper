@@ -11,7 +11,7 @@ export default class LeagueCarousel extends React.Component<MyProps> {
 
   render() {
     return (
-      <Wrap>
+      <Wrap mt={2}>
         {this.props.leagues.map((league) => {
           return (
             <WrapItem key={league.league_id}>

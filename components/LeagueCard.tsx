@@ -38,7 +38,7 @@ const LeagueCard = (props: MyProps) => {
       alignContent={"center"}
       alignItems={"center"}
       rounded={"md"}
-      bg="surface_google.1"
+      bg="surface_google.2"
       textColor={"brand.on_surface"}
     >
       <Box as="b" fontSize="sm" textAlign={"center"}>
