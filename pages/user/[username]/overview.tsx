@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
-import { Box, Container } from "@chakra-ui/react";
+import { Box, Container, Divider, SimpleGrid } from "@chakra-ui/react";
 import LeagueCarousel from "../../../components/LeagueCarousel";
 import { LeagueSettings } from "../../../interfaces/sleeper_api/LeagueSettings";
 import DraftTableGroup from "../../../components/DraftTableGroup";
 import Navbar from "../../../components/Navbar";
+import LeaguesSection from "../../../components/LeaguesSection";
 
 const Overview = () => {
   const router = useRouter();
@@ -39,12 +40,19 @@ const Overview = () => {
         </Box>
 
         <Container maxW={"container.xl"}>
-          <Box as="h1" color={"brand.on_background"}>Leagues</Box>
-          <LeagueCarousel
-            leagues={leaguesData.filter((league: LeagueSettings) => {
-              return league.status != "pre_draft";
-            })}
-          ></LeagueCarousel>
+            <LeaguesSection
+              filteredLeagueStates={["pre_draft"]}
+              leagues={leaguesData}
+              title="Completed Drafts"
+            />
+            
+            <Box mt={3} mb={3}></Box>
+            <LeaguesSection
+            title="Pre Draft"
+              filteredLeagueStates={["in_season", "drafting"]}
+              leagues={leaguesData}
+            />
+
           <DraftTableGroup
             leagues={leaguesData.filter((league: LeagueSettings) => {
               return league.status != "pre_draft";
