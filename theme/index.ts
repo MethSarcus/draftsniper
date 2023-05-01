@@ -1,10 +1,8 @@
 // theme/index.js
-"use client"
 import { extendTheme } from "@chakra-ui/react";
 
 // Global style overrides
 import theme from "./theme";
-
 // Component style overrides
 import Card from "./components/CardTheme";
 import DraftPickCard from "./components/DarftPickCardTheme";

@@ -1,14 +1,19 @@
-import {Tabs, TabList, Tab, TabPanels, TabPanel, SimpleGrid, Box, HStack} from '@chakra-ui/react'
+import {Tabs, TabList, Tab, TabPanels, TabPanel, SimpleGrid, Box, HStack, Spinner} from '@chakra-ui/react'
 import DraftSniperDraft from '../classes/DraftSniperDraft'
 import { SleeperUser } from '../sleeper/SleeperUser'
 import DraftSniperMemberToggleCard from './DraftSniperMemberToggleCard'
+import { DraftSettings } from '../sleeper/DraftSettings'
+import { useEffect, useState } from 'react'
+import { LeagueSettings } from '../sleeper/LeagueSettings'
 
 interface DraftTableFilterTabsProps {
-    drafts: DraftSniperDraft[] | undefined | null
     users: SleeperUser[] | undefined | null
+	onClick: () => any
 }
 
 const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
+
+	
 	return (
 		<Tabs isFitted size={"sm"} variant='soft-rounded' align='center' >
 			<TabList >
@@ -20,9 +25,7 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 				<TabPanel>
                     <HStack spacing={2} overflowX={"auto"} paddingY={2}>
                     {props.users && props.users.map((user, index) => {
-                        return <DraftSniperMemberToggleCard key={user.user_id} name={user.display_name} avatar={user.avatar} number_of_drafts={5} member_id={user.user_id} onClick={function (): void {
-                            throw new Error('Function not implemented.')
-                        } }/>
+                        return <DraftSniperMemberToggleCard key={user.user_id} name={user.display_name} avatar={user.avatar} teamName={user.metadata.team_name ?? "No Team Name"} member_id={user.user_id} onClick={props.onClick} />
                     })
                     }
                     </HStack>

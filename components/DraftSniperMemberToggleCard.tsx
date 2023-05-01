@@ -1,4 +1,3 @@
-'use client'
 import {
     Card, Checkbox, HStack, Image, Skeleton,
     SkeletonText, Spacer, Text, VStack
@@ -8,8 +7,8 @@ import { useState } from 'react'
 type MyProps = {
 	name: string
 	avatar: string
-	number_of_drafts: number
 	member_id: string
+	teamName: string
 	onClick: () => void
 }
 
@@ -40,17 +39,17 @@ const DraftSniperMemberToggleCard = (props: MyProps) => {
 						alt='Team Image'
 					/>
 				</Skeleton>
-				<VStack spacing={0} alignItems={'left'} flex={1}>
+				<VStack spacing={0} alignItems={'left'}>
 					<SkeletonText noOfLines={2} isLoaded={imageLoaded}>
-						<Text maxWidth={['120px']} noOfLines={1} fontSize={"sm"}>
+						<Text maxWidth={['100px']} noOfLines={1} fontSize={"sm"} marginBottom={0}>
 							{props?.name}
 						</Text>
-						<Text maxWidth={['120px']} noOfLines={1} fontSize={"xs"} fontWeight={"medium"}>
-							{`${props?.number_of_drafts} Drafts`}
+						<Text marginTop={0} maxWidth={['100px']} noOfLines={1} fontSize={"xs"} fontWeight={"medium"}>
+							{props?.teamName}
 						</Text>
 					</SkeletonText>
 				</VStack>
-				<Checkbox size={'md'} colorScheme={'primary'} defaultChecked onChange={props.onClick} />
+				<Checkbox size={'md'} colorScheme={'primary'} id={props.member_id} defaultChecked value={props.member_id} onChange={props.onClick} />
 			</HStack>
 		</Card>
 	)
