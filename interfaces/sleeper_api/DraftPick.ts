@@ -29,3 +29,10 @@ export interface CombinedDraftPick {
     first_name: string;
   }
   
+
+  export interface AdpDraftPick extends DraftPick {
+    pickNumbers: number[]
+    adp: number
+    pickingTeamIds: string[]
+    
+  }

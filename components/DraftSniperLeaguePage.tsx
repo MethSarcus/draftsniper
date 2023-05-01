@@ -3,7 +3,8 @@ import {
     Container,
     Grid,
     GridItem,
-    Heading
+    Heading,
+    Checkbox
 } from '@chakra-ui/react'
 import { produce } from 'immer'
 import { useEffect, useState } from 'react'
@@ -13,6 +14,7 @@ import { LeagueSettings } from '../sleeper/LeagueSettings'
 import { SleeperUser } from '../sleeper/SleeperUser'
 import DraftSniperPickTable from './DraftSniperPickTable'
 import DraftTableFilterTabs from './DraftTableFilterTabs'
+import DraftSniperADPTable from './DraftSniperADPTable'
 
 interface MyProps {
 	leagueMembers: SleeperUser[] | undefined
@@ -25,6 +27,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 	const [leagueMemberInfo, setLeagueMemberInfo] = useState(new Map())
 	const [picks, setPicks] = useState(props.picks?.flat() ?? [])
 	const [disabledMembers, setDisabledMembers] = useState([] as string[])
+    const [useRookieDraftsOnly, setUseRookieDraftsOnly] = useState(true)
 
 	function toggleMember(checkbox: any) {
 		if (
@@ -47,6 +50,10 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 			setDisabledMembers(nextState)
 		}
 	}
+
+    function toggleRookieDrafts(checkbox: any) {
+        setUseRookieDraftsOnly(checkbox.currentTarget.checked)
+    }
 
 	useEffect(() => {
 		let memberMap = new Map()
@@ -91,6 +98,8 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 								onClick={toggleMember as any}
 							/>
 						)}
+
+                <Checkbox size={'md'} colorScheme={'primary'} id={"rookieDraftsOnlyToggle"} defaultChecked value={"useRookieDraftsOnly"} onChange={toggleRookieDrafts} >Rookie Drafts Only</Checkbox>
 				</GridItem>
 				<GridItem gridArea={'draft_board'}>
 					<Container
@@ -101,13 +110,23 @@ const DraftSniperLeaguePage = (props: MyProps) => {
                         margin={0}
 						className='rs-theme-dark'
 					>
+                        
 						{picks.length > 0 && leagueMemberInfo.size > 0 && (
-							<DraftSniperPickTable
+                            <>
+							{/* <DraftSniperPickTable
 								picks={picks}
 								memberData={leagueMemberInfo}
 								disabledMembers={disabledMembers}
 								allowExternalMemberPicks={false}
-							/>
+							/> */}
+
+                            <DraftSniperADPTable
+                            picks={picks}
+                            memberData={leagueMemberInfo}
+                            disabledMembers={disabledMembers}
+                            allowExternalMemberPicks={false}
+                            rookieDraftsOnly={useRookieDraftsOnly}
+                        /></>
 						)}
 					</Container>
 				</GridItem>
