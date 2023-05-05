@@ -1,8 +1,8 @@
 
 import { Box, Wrap, WrapItem } from "@chakra-ui/react";
-import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings";
 import LeagueCard from "./LeagueCard";
 import LeagueCarousel from "./LeagueCarousel";
+import { LeagueSettings } from "../sleeper/LeagueSettings";
 
 type MyProps = { leagues: LeagueSettings[], filteredLeagueStates: string[], title: string };
 

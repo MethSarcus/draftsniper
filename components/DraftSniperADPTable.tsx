@@ -3,14 +3,13 @@ import {DraftPick} from '../sleeper/DraftPick'
 import {SetStateAction, useState} from 'react'
 import {Avatar, Whisper, Popover, AvatarGroup, Badge} from 'rsuite'
 import {SleeperUser} from '../sleeper/SleeperUser'
-import {Box, Center, HStack, Text} from '@chakra-ui/react'
-import {AdpDraftPick} from '../interfaces/sleeper_api/DraftPick'
-import {DraftSettings} from '../sleeper/DraftSettings'
+import {Box, HStack} from '@chakra-ui/react'
 
 interface MyProps {
 	picks: DraftPick[]
 	memberData: Map<string, SleeperUser> | undefined
 	disabledMembers: string[]
+	disabledDrafts: string[]
 	allowExternalMemberPicks: boolean
 	rookieDraftsOnly: boolean
 }
@@ -43,6 +42,9 @@ const DraftSniperADPTable = (props: MyProps) => {
 					memberData?.has(pick.picked_by)
 				)
 			}
+		})
+		.filter((pick) => {
+			return !props.disabledDrafts.includes(pick.draft_id)
 		})
 		.filter((pick) => {
 			if (props.rookieDraftsOnly) {
@@ -157,6 +159,7 @@ const DraftSniperADPTable = (props: MyProps) => {
 						textOverflow={'ellipsis'}
 						display={'block'}
 						overflow={'hidden'}
+						fontSize={"xs"}
 					>
 						{`${rowData.picks[0].metadata.first_name} ${rowData.picks[0].metadata.last_name}`}
 					</Box>
@@ -196,10 +199,6 @@ const DraftSniperADPTable = (props: MyProps) => {
 					dataKey='player_id'
 					rowData={(rowData: any) => rowData}
 				/>
-			</Column>
-			<Column width={50}>
-				<HeaderCell style={{padding: 4}}>Pos</HeaderCell>
-				<Cell dataKey='picks[0].metadata.position' />
 			</Column>
 
 			<Column flexGrow={2}>

@@ -27,6 +27,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 	const [leagueMemberInfo, setLeagueMemberInfo] = useState(new Map())
 	const [picks, setPicks] = useState(props.picks?.flat() ?? [])
 	const [disabledMembers, setDisabledMembers] = useState([] as string[])
+    const [disabledDrafts, setDisabledDrafts] = useState([] as string[])
     const [useRookieDraftsOnly, setUseRookieDraftsOnly] = useState(true)
 
 	function toggleMember(checkbox: any) {
@@ -48,6 +49,28 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 			})
 
 			setDisabledMembers(nextState)
+		}
+	}
+
+    function toggleDraft(checkbox: any) {
+		if (
+			checkbox.currentTarget.checked &&
+			disabledDrafts.includes(checkbox.currentTarget.value)
+		) {
+			const index = disabledDrafts.indexOf(checkbox.currentTarget.value, 0)
+			if (index > -1) {
+				const nextState = produce(disabledDrafts, (draftState: string[]) => {
+					draftState.splice(index, 1)
+				})
+
+				setDisabledDrafts(nextState)
+			}
+		} else {
+			const nextState = produce(disabledDrafts, (draftState: string[]) => {
+				draftState.push(checkbox.currentTarget.value)
+			})
+
+			setDisabledDrafts(nextState)
 		}
 	}
 
@@ -95,7 +118,9 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 						props.leagueMembers != undefined && drafts != undefined && (
 							<DraftTableFilterTabs
 								users={props.leagueMembers}
-								onClick={toggleMember as any}
+								onMemberClick={toggleMember as any}
+                                onDraftClick={toggleDraft as any}
+                                drafts={Array.from(drafts.values())}
 							/>
 						)}
 
@@ -124,6 +149,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
                             picks={picks}
                             memberData={leagueMemberInfo}
                             disabledMembers={disabledMembers}
+                            disabledDrafts={disabledDrafts}
                             allowExternalMemberPicks={false}
                             rookieDraftsOnly={useRookieDraftsOnly}
                         /></>

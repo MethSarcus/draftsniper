@@ -1,31 +1,25 @@
 import {
-	Popover,
-	PopoverTrigger,
-	Button,
-	PopoverContent,
-	PopoverArrow,
-	Stack,
-	StackItem,
-	PopoverHeader,
-	PopoverBody,
-	PopoverFooter,
 	Box,
-	Text,
-	Badge,
+	Button,
 	Code,
 	HStack,
-	VStack,
+	Popover,
+	PopoverArrow,
+	PopoverBody,
+	PopoverContent,
+	PopoverHeader,
+	PopoverTrigger,
+	Text,
+	VStack
 } from '@chakra-ui/react'
+import { DraftSettings } from '../sleeper/DraftSettings'
+import { LeagueSettings, ScoringSettings } from '../sleeper/LeagueSettings'
 import {
-	hasPremiumScoring,
-	hasVariablePPR,
 	POSITION,
+	hasPremiumScoring
 } from '../utility/rosterFunctions'
-import PositionBadge from './PositionBadges/PositionBadge'
 import FlexPositionBadge from './PositionBadges/FlexPositionBadge'
-import {LeagueSettings, ScoringSettings} from '../sleeper/LeagueSettings'
-import {Draft} from '../interfaces/sleeper_api/DraftSettings'
-import {DraftSettings} from '../sleeper/DraftSettings'
+import PositionBadge from './PositionBadges/PositionBadge'
 
 type MyProps = {
 	league: LeagueSettings
@@ -69,7 +63,7 @@ const DraftPopover = (props: MyProps) => {
 											) : (
 												<FlexPositionBadge variant={pos} size={'md'} />
 											)}
-											{pos != "BN" && <Box>x{positionCounts.get(pos)}</Box>}
+											{pos != 'BN' && <Box>x{positionCounts.get(pos)}</Box>}
 										</HStack>
 									</Box>
 								)
@@ -148,121 +142,5 @@ const premReceptionScoringSettings: (keyof ScoringSettings)[] = [
 	'bonus_rec_wr',
 	'bonus_rec_te',
 ]
-
-function formatScoringForPopover(
-	scoringSettings: ScoringSettings
-): JSX.Element[] {
-	let textArr: JSX.Element[] = []
-	textArr.push(
-		<Box>
-			<Code>PPR: {scoringSettings.rec}</Code>
-		</Box>
-	)
-
-	textArr.push(
-		<Box>
-			<Code>Receiving TD: {scoringSettings.rec_td}</Code>
-		</Box>
-	)
-
-	textArr.push(
-		<Box>
-			<Code>Passing TD: {scoringSettings.pass_td}</Code>
-		</Box>
-	)
-
-	textArr.push(
-		<Box>
-			<Code>Int: {scoringSettings.pass_int}</Code>
-		</Box>
-	)
-	if (scoringSettings.pass_sack) {
-		textArr.push(
-			<Box>
-				<Code>Sack: {scoringSettings.pass_sack}</Code>
-			</Box>
-		)
-	}
-
-	if (hasPremiumScoring(scoringSettings)) {
-		if (scoringSettings.bonus_rec_rb && scoringSettings.bonus_rec_rb > 0) {
-			textArr.push(
-				<Box>
-					<Code>RB Bonus: {scoringSettings.bonus_rec_rb}</Code>
-				</Box>
-			)
-		}
-		if (scoringSettings.bonus_rec_wr && scoringSettings.bonus_rec_wr > 0) {
-			textArr.push(
-				<Box>
-					<Code>WR Bonus: {scoringSettings.bonus_rec_wr}</Code>
-				</Box>
-			)
-		}
-		if (scoringSettings.bonus_rec_te && scoringSettings.bonus_rec_te > 0) {
-			textArr.push(
-				<Box>
-					<Code>TE Bonus: {scoringSettings.bonus_rec_te}</Code>
-				</Box>
-			)
-		}
-	}
-
-	return textArr
-}
-
-function formatVarPPR(scoringSettings: ScoringSettings) {
-	let varPPR = []
-	varPPR.push(<Text as='h6'>Variable PPR</Text>)
-	if (scoringSettings?.rec_0_4 != undefined) {
-		varPPR.push(
-			<Box>
-				<Code>0-5 yards: {scoringSettings?.rec_0_4}</Code>
-			</Box>
-		)
-	}
-
-	if (scoringSettings?.rec_5_9 != undefined) {
-		varPPR.push(
-			<Box>
-				<Code>5-9 yards: {scoringSettings?.rec_5_9}</Code>
-			</Box>
-		)
-	}
-
-	if (scoringSettings?.rec_10_19 != undefined) {
-		varPPR.push(
-			<Box>
-				<Code>10-19 yards: {scoringSettings?.rec_10_19}</Code>
-			</Box>
-		)
-	}
-
-	if (scoringSettings?.rec_20_29 != undefined) {
-		varPPR.push(
-			<Box>
-				<Code>20-29 yards: {scoringSettings?.rec_20_29}</Code>
-			</Box>
-		)
-	}
-
-	if (scoringSettings?.rec_30_39 != undefined) {
-		varPPR.push(
-			<Box>
-				<Code>30-39 yards: {scoringSettings?.rec_30_39}</Code>
-			</Box>
-		)
-	}
-
-	if (scoringSettings?.rec_40p != undefined) {
-		varPPR.push(
-			<Box>
-				<Code>40+ yards: {scoringSettings?.rec_40p}</Code>
-			</Box>
-		)
-	}
-
-	return varPPR
-}
 
 export default DraftPopover
