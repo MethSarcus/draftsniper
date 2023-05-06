@@ -148,7 +148,7 @@ const UsernameForm = () => {
 
 			<Collapse in={usernameSubmitted}>
 				<Box pt={6}>
-					<Box as='h1' mb={1}>
+					<Box as='h4' mb={1} textColor={"textTheme.mediumEmphasis"}>
 						Leagues
 					</Box>
 					<LeagueCellGroup

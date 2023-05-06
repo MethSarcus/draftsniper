@@ -105,19 +105,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 					<Heading size={'md'}>{props.league?.name}</Heading>
 				</GridItem>
 				<GridItem gridArea={'filter_tabs'} overflowX={'clip'}>
-					{leagueMemberInfo.size > 0 &&
-						drafts.size > 0 &&
-						props.leagueMembers != undefined &&
-						drafts != undefined && (
-							<DraftTableFilterTabs
-								users={props.leagueMembers}
-								onMemberClick={toggleMember as any}
-								onDraftClick={toggleDraft as any}
-								drafts={Array.from(drafts.values())}
-							/>
-						)}
-
-					<Checkbox
+				<Checkbox
 						size={'md'}
 						colorScheme={'primary'}
 						id={'rookieDraftsOnlyToggle'}
@@ -126,6 +114,14 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 						onChange={toggleRookieDrafts}>
 						Rookie Drafts Only
 					</Checkbox>
+							<DraftTableFilterTabs
+								users={props.leagueMembers}
+								onMemberClick={toggleMember as any}
+								onDraftClick={toggleDraft as any}
+								drafts={Array.from(drafts.values())}
+							/>
+
+
 				</GridItem>
 				<GridItem gridArea={'draft_board'}>
 					<Container

@@ -17,7 +17,6 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 			<TabList>
 				<Tab>Members</Tab>
 				<Tab>Drafts</Tab>
-				<Tab>Positions</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel>
@@ -25,7 +24,7 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 						{props.users != undefined && (
 							<SimpleGrid
 								width={'-moz-max-content'}
-								columns={Math.round(props.users.length / 3)}
+								columns={Math.round(props.users.length / 4)}
 								spacing={2}
 								paddingY={2}>
 								{props.users &&
@@ -50,7 +49,7 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 						{props.drafts != undefined && (
 							<SimpleGrid
 								width={'-moz-max-content'}
-								columns={Math.round(props.drafts?.length / 2)}
+								columns={Math.round(props.drafts?.length / 4)}
 								spacing={2}
 								paddingY={2}>
 								{[...new Set(props.drafts)].map((draft) => {
@@ -66,9 +65,6 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 							</SimpleGrid>
 						)}
 					</Box>
-				</TabPanel>
-				<TabPanel>
-					<p>Three</p>
 				</TabPanel>
 			</TabPanels>
 		</Tabs>

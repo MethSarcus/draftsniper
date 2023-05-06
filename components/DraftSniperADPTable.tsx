@@ -82,6 +82,7 @@ const DraftSniperADPTable = (props: MyProps) => {
 	})
 
 	const getData = () => {
+		console.debug(sortColumn, sortType)
 		if (sortColumn && sortType) {
 			return draftPicks.sort((a: adpPick, b: adpPick) => {
 				let x = a[sortColumn]
@@ -92,9 +93,12 @@ const DraftSniperADPTable = (props: MyProps) => {
 					return y - x
 				}
 			})
-		}
-		return draftPicks
-	}
+		} else {
+			return draftPicks.sort((a: adpPick, b: adpPick) => {
+				{
+					return a.adp - b.adp
+				}
+		})}}
 
 	const AvatarGroupCell = ({
 		rowData,
