@@ -21,6 +21,43 @@ const Home: NextPage = () => {
 			<Head>
 				<title>Draft Sniper</title>
 				<meta name='An app for sniping those picks' content='Sneak a peep at your leaguemates draft boards' />
+				<link
+					rel='apple-touch-icon'
+					sizes='180x180'
+					href='/favicons/apple-touch-icon.png'
+				/>
+				<link
+					rel='icon'
+					type='image/png'
+					sizes='16x16'
+					href='/favicons/favicon-16x16.png'
+				/>
+				<link
+					rel='icon'
+					type='image/png'
+					sizes='32x32'
+					href='/favicons/favicon-32x32.png'
+				/>
+				<link
+					rel='icon'
+					type='image/png'
+					sizes='100x100'
+					href='/favicons/favicon-100x100.png'
+				/>
+
+				<link
+					rel='icon'
+					type='image/png'
+					sizes='192x192'
+					href='/favicons/favicon-192x192.png'
+				/>
+
+				<link
+					rel='icon'
+					type='image/png'
+					sizes='512x512'
+					href='/favicons/favicon-512x512.png'
+				/>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 

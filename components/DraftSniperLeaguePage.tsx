@@ -1,4 +1,4 @@
-import {Box, Container, Grid, GridItem, Heading, Checkbox, HStack, useMediaQuery} from '@chakra-ui/react'
+import {Box, Container, Grid, GridItem, Heading, Checkbox, HStack, useMediaQuery, Spinner} from '@chakra-ui/react'
 import {produce} from 'immer'
 import {useEffect, useState} from 'react'
 import {DraftPick} from '../sleeper/DraftPick'
@@ -102,30 +102,27 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 				templateAreas={[mobileGrid, desktopGrid]}
 				gridTemplateColumns={['1fr', '1fr 1fr']}>
 				<GridItem gridArea={'header'} py={4}>
-					<Heading size={'md'}>{props.league?.name}</Heading>
+					<Heading size={'sm'}>{props.league?.name} member draft data</Heading>
 				</GridItem>
 				<GridItem gridArea={'filter_tabs'} overflowX={'clip'}>
-					{leagueMemberInfo.size > 0 &&
-						drafts.size > 0 &&
-						props.leagueMembers != undefined &&
-						drafts != undefined && (
+				<Checkbox
+						size={'md'}
+						colorScheme={'primary'}
+						id={'rookieDraftsOnlyToggle'}
+						defaultChecked
+						my={2}
+						value={'useRookieDraftsOnly'}
+						onChange={toggleRookieDrafts}>
+						Rookie Drafts Only
+					</Checkbox>
 							<DraftTableFilterTabs
 								users={props.leagueMembers}
 								onMemberClick={toggleMember as any}
 								onDraftClick={toggleDraft as any}
 								drafts={Array.from(drafts.values())}
 							/>
-						)}
 
-					<Checkbox
-						size={'md'}
-						colorScheme={'primary'}
-						id={'rookieDraftsOnlyToggle'}
-						defaultChecked
-						value={'useRookieDraftsOnly'}
-						onChange={toggleRookieDrafts}>
-						Rookie Drafts Only
-					</Checkbox>
+
 				</GridItem>
 				<GridItem gridArea={'draft_board'}>
 					<Container
@@ -135,6 +132,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 						padding={0}
 						margin={0}
 						className='rs-theme-dark'>
+							{picks.length <= 0 && (<Spinner/>)}
 						{picks.length > 0 && leagueMemberInfo.size > 0 && (
 								// <DraftSniperPickTable
 								// 	picks={picks}
