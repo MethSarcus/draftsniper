@@ -18,32 +18,36 @@ const FlexPositionBadge = (props: MyProps) => {
 
   switch (variant) {
     case "SUPER_FLEX": {
-      includedPositions.push(<Center h={"50%"} bg="position.WR">W</Center>);
-      includedPositions.push(<Center h={"50%"} bg="position.RB">R</Center>);
-      includedPositions.push(<Center h={"50%"} bg="position.TE">T</Center>);
-      includedPositions.push(<Center h={"50%"} bg="position.QB">Q</Center>);
+      includedPositions.push(<Center key={"w"} h={"50%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center key={"r"} h={"50%"} bg="position.RB">R</Center>);
+      includedPositions.push(<Center key={"t"} h={"50%"} bg="position.TE">T</Center>);
+      includedPositions.push(<Center key={"q"} h={"50%"} bg="position.QB">Q</Center>);
       break;
     }
     case "REC_FLEX": {
-      includedPositions.push(<Center h={"100%"} bg="position.WR">W</Center>);
-      includedPositions.push(<Center h={"100%"} bg="position.TE">T</Center>);
+      includedPositions.push(<Center key={"w"} h={"100%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center key={"t"} h={"100%"} bg="position.TE">T</Center>);
       break;
     }
     case "WRRB_FLEX": {
-      includedPositions.push(<Center h={"100%"} bg="position.WR">W</Center>);
-      includedPositions.push(<Center h={"100%"} bg="position.RB">R</Center>);
+      includedPositions.push(<Center key={"w"} h={"100%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center key={"r"} h={"100%"} bg="position.RB">R</Center>);
       break;
     }
     case "IDP_FLEX": {
-      includedPositions.push(<Center h={"100%"} bg="position.DL">DL</Center>);
-      includedPositions.push(<Center h={"100%"} bg="position.DB">DB</Center>);
-      includedPositions.push(<Center h={"100%"} bg="position.LB">LB</Center>);
+      includedPositions.push(<Center key={"dl"} h={"100%"} bg="position.DL">DL</Center>);
+      includedPositions.push(<Center key={"db"} h={"100%"} bg="position.DB">DB</Center>);
+      includedPositions.push(<Center key={"lb"} h={"100%"} bg="position.LB">LB</Center>);
       break;
     }
     case "FLEX": {
-      includedPositions.push(<Center h={"100%"} bg="position.WR">W</Center>);
-      includedPositions.push(<Center h={"100%"} bg="position.RB">R</Center>);
-      includedPositions.push(<Center h={"100%"} bg="position.TE">T</Center>);
+      includedPositions.push(<Center key={"w"} h={"100%"} bg="position.WR">W</Center>);
+      includedPositions.push(<Center key={"r"} h={"100%"} bg="position.RB">R</Center>);
+      includedPositions.push(<Center key={"t"} h={"100%"} bg="position.TE">T</Center>);
+      break;
+    }
+    
+    case "BN": {
       break;
     }
   }

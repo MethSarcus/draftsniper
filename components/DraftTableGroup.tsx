@@ -19,12 +19,12 @@ import axios from "axios";
 import router from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
-import { DraftPick } from "../interfaces/sleeper_api/DraftPick";
-import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings";
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions";
 import DraftPickCard from "./DraftPickCard";
 import DraftPickDataTable from "./DraftPickDataTable";
 import FilterablePickTable from "./FilterablePickTable";
+import { LeagueSettings } from "../sleeper/LeagueSettings";
+import { DraftPick } from "../sleeper/DraftPick";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 

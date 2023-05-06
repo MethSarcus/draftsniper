@@ -3,10 +3,10 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import useSWR from "swr";
 import { Context } from "../contexts/Context";
-import { DraftPick } from "../interfaces/sleeper_api/DraftPick";
-import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings";
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions";
 import DraftPickDataTable from "./DraftPickDataTable";
+import { DraftPick } from "../sleeper/DraftPick";
+import { LeagueSettings } from "../sleeper/LeagueSettings";
 
 type MyProps = {
   leagues: LeagueSettings[];

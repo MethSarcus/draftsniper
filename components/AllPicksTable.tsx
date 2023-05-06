@@ -12,7 +12,7 @@ import axios from "axios";
 import React, { useContext } from "react";
 import useSWR from "swr";
 import { Context } from "../contexts/Context";
-import { DraftPick } from "../interfaces/sleeper_api/DraftPick";
+import { DraftPick } from "../sleeper/DraftPick";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const AllPicksTable = () => {

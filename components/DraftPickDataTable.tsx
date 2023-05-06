@@ -2,12 +2,10 @@ import DataTable, {
 	ExpanderComponentProps,
 	TableColumn,
 } from "react-data-table-component"
-import {
-	DraftPick,
-} from "../interfaces/sleeper_api/DraftPick"
+import { DraftPick } from "../sleeper/DraftPick";
 import React from "react"
-import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
-import { SleeperUser } from "../interfaces/sleeper_api/SleeperUser"
+import { SleeperUser } from "../sleeper/SleeperUser";
+import { LeagueSettings } from "../sleeper/LeagueSettings";
 
 type MyProps = { picks: DraftPick[]; includedDrafts: string[], includedPositions: string[], focusedUser: string }
 

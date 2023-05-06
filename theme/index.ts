@@ -3,48 +3,30 @@ import { extendTheme } from "@chakra-ui/react";
 
 // Global style overrides
 import theme from "./theme";
-
 // Component style overrides
 import Card from "./components/CardTheme";
 import DraftPickCard from "./components/DarftPickCardTheme";
 import PositionBadge from "./components/PositionBadge";
 import FlexPositionBadge from "./components/FlexPositionBadge";
+import { borderRadius } from "./overrides/Layout";
+//import MatchupHeaderTeam from "./components/MatchupHeaderTeam";
+// import { borderRadius, sizes, spacing } from "./overrides/Layout";
 
 const overrides = {
   theme,
+  // ...sizes,
+  ...borderRadius,
+
   // Other foundational style overrides go here
   components: {
     Card,
     DraftPickCard,
     PositionBadge,
-    FlexPositionBadge
+    FlexPositionBadge,
+    //MatchupHeaderTeam
   },
   colors: {
     primary: {
-      50: "#F7F2FE",
-      100: "#F0E6FC",
-      200: "#E8D9FB",
-      300: "#E1CDFA",
-      400: "#D9C0F8",
-      500: "#D1B3F7",
-      600: "#CAA7F6",
-      700: "#C29AF5",
-      800: "#BA8DF3",
-      900: "#B381F2",
-    },
-    primary_dark: {
-      50: "#120D19",
-      100: "#241A30",
-      200: "#362749",
-      300: "#483461",
-      400: "#5A4179",
-      500: "#6B4D91",
-      600: "#6002ee",
-      700: "#8F67C2",
-      800: "#A174DA",
-      900: "#B381F2",
-    },
-    primary_google: {
       50: "#f4ebfe",
       100: "#e2cdfd",
       200: "#cfabfd",
@@ -56,7 +38,7 @@ const overrides = {
       800: "#7335d8",
       900: "#5f27ca",
     },
-    secondary_google: {
+    secondary: {
       50: "#d4f6f2",
       100: "#92e9dc",
       200: "#03dac4",
@@ -68,18 +50,40 @@ const overrides = {
       800: "#007957",
       900: "#005b39",
     },
-    surface_google: {
-      0: "#292929",
-      1: "#121212",
-      2: "#1E1E1E",
-      3: "#232323",
-      4: "#252525",
-      5: "#272727",
-      6: "#2C2C2C",
-      7: "#2F2F2F",
-      8: "#333333",
-      9: "#353535",
-      10: "#383838",
+    secondary_inverted: {
+    90: "#d4f6f2",
+    800: "#92e9dc",
+    700: "#03dac4",
+    600: "#00c7ab",
+    500: "#00b798",
+    400: "#00a885",
+    300: "#009a77",
+    200: "#008966",
+    100: "#007957",
+    50: "#005b39",
+  },
+    surface: {
+      0: "rgb(37, 37, 37)",
+      1: "rgb(56, 56, 56)",
+      2: "rgb(75, 75, 75)",
+      3: "rgb(94, 94, 94)",
+      4: "rgb(113, 113, 113)",
+      5: "rgb(132, 132, 132)",
+      6: "rgb(5, 5, 5)",
+      7: "rgb(151, 151, 151)",
+      8: "rgb(189, 189, 189)",
+      9: "rgb(208, 208, 208)",
+      10: "rgb(226, 226, 226)",
+    },
+    textTheme: {
+      highEmphasis: "#E0E0E0",
+      mediumEmphasis: "#A0A0A0",
+      disabled: "#6C6C6C"
+    },
+    statColor: {
+      good: "rgb(151,245,143, .8)",
+      bad: "#B00020",
+      neutral: "rgb(56, 56, 56)"
     },
     position: {
       QB: "rgba(239, 116, 161, 0.8)",
@@ -91,78 +95,7 @@ const overrides = {
       LB: "rgba(174, 182, 252, 0.8)",
       K: "#7988a1",
       DEF: "#bd66ff"
-    },
-    blank: {
-      50: "",
-      100: "",
-      200: "",
-      300: "",
-      400: "",
-      500: "",
-      600: "",
-      700: "",
-      800: "",
-      900: "",
-    },
-    secondary: {
-      100: "#03DAC6",
-      200: "#35E1D1",
-      300: "#68E9DD",
-      400: "#9AF0E8",
-      500: "#CDF8F4",
-    },
-    dark: {
-      100: "#353E50",
-      200: "#584D83",
-      300: "#775FA8",
-      400: "#956FCD",
-      500: "#B381F2",
-    },
-    dark_variant: {
-      100: "#707784",
-      200: "#9CA1AA",
-      300: "#C8CACF",
-      400: "#F4F4F5",
-    },
-    brand: {
-      primary: "#BB86FC",
-      primary_variant: "#3700B3",
-      secondary: "#03DAC6",
-      background: "#292929",
-      elevation_1: "#1E1E1E",
-      surface: "#121212",
-      error: "#CF6679",
-      on_primary: "#000000",
-      on_secondary: "#000000",
-      on_background: "#FFFFFF",
-      on_surface: "#FFFFFF",
-      on_error: "#000000",
-    },
-    base: {
-      base_default: "#627D98",
-      base_50: "#F0F4F8",
-      base_100: "#D9E2EC",
-      base_200: "#BCCCDC",
-      base_300: "#9FB3C8",
-      base_400: "#829AB1",
-      base_500: "#627D98",
-      base_600: "#486581",
-      base_700: "#334E68",
-      base_800: "#243B53",
-      base_900: "#102A43",
-    },
-    purple: {
-      50: "#f3e5ff",
-      100: "#d6b3ff",
-      200: "#b983fc",
-      300: "#9d51fa",
-      400: "#8121f7",
-      500: "#680ade",
-      600: "#5105ad",
-      700: "#3a037c",
-      800: "#23014d",
-      900: "#0e001d",
-    },
+    }
   },
 };
 

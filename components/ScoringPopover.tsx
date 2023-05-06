@@ -16,16 +16,13 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import {
-  LeagueSettings,
-  ScoringSettings,
-} from "../interfaces/sleeper_api/LeagueSettings";
-import {
   hasPremiumScoring,
   hasVariablePPR,
   POSITION,
 } from "../utility/rosterFunctions";
 import PositionBadge from "./PositionBadges/PositionBadge";
 import FlexPositionBadge from "./PositionBadges/FlexPositionBadge";
+import { LeagueSettings, ScoringSettings } from "../sleeper/LeagueSettings";
 
 type MyProps = {
   league: LeagueSettings;

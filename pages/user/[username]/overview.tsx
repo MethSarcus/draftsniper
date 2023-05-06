@@ -2,11 +2,10 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
 import { Box, Container, Divider, SimpleGrid } from "@chakra-ui/react";
-import LeagueCarousel from "../../../components/LeagueCarousel";
-import { LeagueSettings } from "../../../interfaces/sleeper_api/LeagueSettings";
 import DraftTableGroup from "../../../components/DraftTableGroup";
 import Navbar from "../../../components/Navbar";
 import LeaguesSection from "../../../components/LeaguesSection";
+import { LeagueSettings } from "../../../sleeper/LeagueSettings";
 
 const Overview = () => {
   const router = useRouter();

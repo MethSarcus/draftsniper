@@ -1,12 +1,12 @@
-import { DraftPick } from "../interfaces/sleeper_api/DraftPick"
-import { Draft } from "../interfaces/sleeper_api/DraftSettings"
-import { LeagueSettings } from "../interfaces/sleeper_api/LeagueSettings"
+import { DraftPick } from "../sleeper/DraftPick"
+import { DraftSettings } from "../sleeper/DraftSettings"
+import { LeagueSettings } from "../sleeper/LeagueSettings"
 
 interface MockDraftUser {
     username: string
     userId: string
     userPicks: DraftPick[]
-    userDrafts: Draft[]
+    userDrafts: DraftSettings[]
     mockDraftSettings: LeagueSettings
 
 

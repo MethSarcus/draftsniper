@@ -3,7 +3,7 @@ import useSWR from "swr";
 import axios from "axios";
 import { Grid, GridItem } from "@chakra-ui/react";
 import DraftPickCard from "../../components/DraftPickCard";
-import { DraftPick } from "../../interfaces/sleeper_api/DraftPick";
+import { DraftPick } from "../../sleeper/DraftPick";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const MockDraftBoard = () => {

@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import Cors from "cors";
-import { LeagueSettings } from "../../../interfaces/sleeper_api/LeagueSettings";
-import { DraftPick } from "../../../interfaces/sleeper_api/DraftPick";
+import { DraftPick } from "../../../sleeper/DraftPick";
+import { LeagueSettings } from "../../../sleeper/LeagueSettings";
 
 const cors = Cors({
   methods: ["GET", "HEAD"],
