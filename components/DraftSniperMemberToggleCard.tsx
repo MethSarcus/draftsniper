@@ -23,8 +23,6 @@ const DraftSniperMemberToggleCard = (props: MyProps) => {
 			textColor={'white'}
 			height={'max-content'}
 			textAlign={'start'}
-            minW={'200px'}
-			maxW={'200px'}
 		>
 			<Center>
 
