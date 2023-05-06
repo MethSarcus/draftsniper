@@ -10,7 +10,6 @@ import bg from '../public/images/glitchedbg.png'
 import Card from '../components/Card'
 import UsernameForm from '../components/UsernameFrom'
 import {TfiTarget} from 'react-icons/tfi'
-import {ImTarget} from 'react-icons/Im'
 import {GiAmericanFootballBall, GiTargeting} from 'react-icons/gi'
 
 const Home: NextPage = () => {
