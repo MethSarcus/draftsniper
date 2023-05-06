@@ -105,7 +105,7 @@ const UsernameForm = () => {
 					<Spacer />
 
 					<Link
-						href='https://github.com/MethSarcus/visualeague/issues/new/choose'
+						href='https://github.com/MethSarcus/draftsniper/issues/new/choose'
 						target='_blank'
 						rel='noreferrer'
 					>

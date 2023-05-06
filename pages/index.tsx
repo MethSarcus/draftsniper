@@ -47,7 +47,8 @@ const Home: NextPage = () => {
 							boxShadow={5}
 							justifyContent={'center'}
 							flexDirection={'row'}
-							p={10}
+							p={5}
+              m={5}
 							overflow='hidden'
 							borderRadius={10}
 							style={{visibility: 'visible', opacity: '0.99', transition: '2s ease-in-out'}}>
