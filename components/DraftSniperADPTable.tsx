@@ -3,7 +3,7 @@ import {DraftPick} from '../sleeper/DraftPick'
 import {SetStateAction, useState} from 'react'
 import {Avatar, Whisper, Popover, AvatarGroup, Badge} from 'rsuite'
 import {SleeperUser} from '../sleeper/SleeperUser'
-import {Box, HStack} from '@chakra-ui/react'
+import {Box, HStack, useMediaQuery} from '@chakra-ui/react'
 
 interface MyProps {
 	picks: DraftPick[]
@@ -22,10 +22,14 @@ interface adpPick {
 }
 
 const DraftSniperADPTable = (props: MyProps) => {
+	const [isLargerThan800] = useMediaQuery('(min-width: 800px)', {
+		ssr: true,
+		fallback: false, // return false on the server, and re-evaluate on the client side
+	})
 	const [memberData, setMemberData] = useState(props.memberData)
 	const [sortColumn, setSortColumn] = useState()
 	const [sortType, setSortType] = useState()
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(memberData == undefined ? true : false)
 	const pickMap = new Map<string, DraftPick[]>()
 
 	props.picks
@@ -184,7 +188,7 @@ const DraftSniperADPTable = (props: MyProps) => {
 	return (
 		<Table
 			virtualized
-			height={500}
+			height={isLargerThan800 ? 700 : 300}
 			data={getData()}
 			headerHeight={30}
 			rowHeight={60}
@@ -205,7 +209,7 @@ const DraftSniperADPTable = (props: MyProps) => {
 				/>
 			</Column>
 
-			<Column flexGrow={2}>
+			<Column flexGrow={1}>
 				<HeaderCell style={{padding: 4}}>Picked By</HeaderCell>
 				<AvatarGroupCell
 					dataKey='drafted_by'

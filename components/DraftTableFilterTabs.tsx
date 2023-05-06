@@ -1,4 +1,4 @@
-import {Tabs, TabList, Tab, TabPanels, TabPanel, SimpleGrid, Box, HStack, Spinner} from '@chakra-ui/react'
+import {Tabs, TabList, Tab, TabPanels, TabPanel, SimpleGrid, Box, HStack, Spinner, useMediaQuery} from '@chakra-ui/react'
 import {SleeperUser} from '../sleeper/SleeperUser'
 import DraftSniperMemberToggleCard from './DraftSniperMemberToggleCard'
 import {DraftSettings} from '../sleeper/DraftSettings'
@@ -12,6 +12,10 @@ interface DraftTableFilterTabsProps {
 }
 
 const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
+	const [isLargerThan800] = useMediaQuery('(min-width: 800px)', {
+		ssr: true,
+		fallback: false, // return false on the server, and re-evaluate on the client side
+	})
 	return (
 		<Tabs isFitted size={'sm'} variant='soft-rounded' align='center'>
 			<TabList>
@@ -24,7 +28,7 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 						{props.users != undefined && (
 							<SimpleGrid
 								width={'-moz-max-content'}
-								columns={Math.round(props.users.length / 4)}
+								columns={Math.round(props.users.length / (isLargerThan800 ? 4 : 2))}
 								spacing={2}
 								paddingY={2}>
 								{props.users &&
@@ -49,7 +53,7 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 						{props.drafts != undefined && (
 							<SimpleGrid
 								width={'-moz-max-content'}
-								columns={Math.round(props.drafts?.length / 4)}
+								columns={Math.round(props.drafts?.length / (isLargerThan800 ? 4 : 2))}
 								spacing={2}
 								paddingY={2}>
 								{[...new Set(props.drafts)].map((draft) => {
