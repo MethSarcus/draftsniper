@@ -10,14 +10,11 @@ import {
 	PopoverHeader,
 	PopoverTrigger,
 	Text,
-	VStack
+	VStack,
 } from '@chakra-ui/react'
-import { DraftSettings } from '../sleeper/DraftSettings'
-import { LeagueSettings, ScoringSettings } from '../sleeper/LeagueSettings'
-import {
-	POSITION,
-	hasPremiumScoring
-} from '../utility/rosterFunctions'
+import {DraftSettings} from '../sleeper/DraftSettings'
+import {LeagueSettings, ScoringSettings} from '../sleeper/LeagueSettings'
+import {POSITION, hasPremiumScoring} from '../utility/rosterFunctions'
 import FlexPositionBadge from './PositionBadges/FlexPositionBadge'
 import PositionBadge from './PositionBadges/PositionBadge'
 
@@ -26,7 +23,7 @@ type MyProps = {
 	draft: DraftSettings
 }
 
-const DraftPopover = (props: MyProps) => {
+const DraftSettingsPopover = (props: MyProps) => {
 	let positionCounts = new Map<string, number>()
 
 	props.league?.roster_positions?.forEach((pos) => {
@@ -69,7 +66,7 @@ const DraftPopover = (props: MyProps) => {
 								)
 							})}
 						</VStack>
-						<VStack align={'stretch'}>
+						<VStack align={'stretch'} textAlign={'start'}>
 							{importantScoringSettings.map((setting) => {
 								return (
 									<Code key={setting}>
@@ -89,8 +86,6 @@ const DraftPopover = (props: MyProps) => {
 								})}
 						</VStack>
 					</HStack>
-
-					{/* <Code>{JSON.stringify(props.league.scoring_settings)}</Code> */}
 				</PopoverBody>
 			</PopoverContent>
 		</Popover>
@@ -143,4 +138,4 @@ const premReceptionScoringSettings: (keyof ScoringSettings)[] = [
 	'bonus_rec_te',
 ]
 
-export default DraftPopover
+export default DraftSettingsPopover

@@ -1,14 +1,4 @@
-import {
-	Tabs,
-	TabList,
-	Tab,
-	TabPanels,
-	TabPanel,
-	SimpleGrid,
-	Box,
-	HStack,
-	Spinner,
-} from '@chakra-ui/react'
+import {Tabs, TabList, Tab, TabPanels, TabPanel, SimpleGrid, Box, HStack, Spinner} from '@chakra-ui/react'
 import {SleeperUser} from '../sleeper/SleeperUser'
 import DraftSniperMemberToggleCard from './DraftSniperMemberToggleCard'
 import {DraftSettings} from '../sleeper/DraftSettings'
@@ -32,26 +22,27 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 			<TabPanels>
 				<TabPanel>
 					<Box overflowX={'auto'}>
-						{props.users != undefined && <SimpleGrid
-							width={'-moz-max-content'}
-							columns={Math.round(props.users.length / 2)}
-							spacing={2}
-							paddingY={2}
-						>
-							{props.users &&
-								props.users.map((user, index) => {
-									return (
-										<DraftSniperMemberToggleCard
-											key={user.user_id}
-											name={user.display_name}
-											avatar={user.avatar}
-											teamName={user.metadata.team_name ?? 'No Team Name'}
-											member_id={user.user_id}
-											onClick={props.onMemberClick}
-										/>
-									)
-								})}
-						</SimpleGrid>}
+						{props.users != undefined && (
+							<SimpleGrid
+								width={'-moz-max-content'}
+								columns={Math.round(props.users.length / 3)}
+								spacing={2}
+								paddingY={2}>
+								{props.users &&
+									props.users.map((user, index) => {
+										return (
+											<DraftSniperMemberToggleCard
+												key={user.user_id}
+												name={user.display_name}
+												avatar={user.avatar}
+												teamName={user.metadata.team_name ?? 'No Team Name'}
+												member_id={user.user_id}
+												onClick={props.onMemberClick}
+											/>
+										)
+									})}
+							</SimpleGrid>
+						)}
 					</Box>
 				</TabPanel>
 				<TabPanel>
@@ -61,18 +52,17 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 								width={'-moz-max-content'}
 								columns={Math.round(props.drafts?.length / 2)}
 								spacing={2}
-								paddingY={2}
-							>
+								paddingY={2}>
 								{[...new Set(props.drafts)].map((draft) => {
 									return (
 										<DraftSettingsCard
 											onClick={props.onDraftClick}
-											key={draft.league_id + "_" + draft.draft_id + '_draft'}
+											key={draft.league_id + '_' + draft.draft_id + '_draft'}
 											draft={draft}
 											leagueUsers={props.users?.map((user) => user.user_id) ?? []}
 										/>
 									)
-								})}{' '}
+								})}
 							</SimpleGrid>
 						)}
 					</Box>

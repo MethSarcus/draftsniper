@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import axios from "axios";
-import DraftPickCard from "../../../../components/DraftPickCard";
+import DraftPickCard from "../../components/DraftPickCard";
 import { Grid, GridItem } from "@chakra-ui/react";
-import { DraftPick } from "../../../../sleeper/DraftPick";
+import { DraftPick } from "../../sleeper/DraftPick";
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 const DraftBoard = () => {

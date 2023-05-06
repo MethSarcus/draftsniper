@@ -1,20 +1,14 @@
-import {
-    Box,
-    Container,
-    Grid,
-    GridItem,
-    Heading,
-    Checkbox
-} from '@chakra-ui/react'
-import { produce } from 'immer'
-import { useEffect, useState } from 'react'
-import { DraftPick } from '../sleeper/DraftPick'
-import { DraftSettings } from '../sleeper/DraftSettings'
-import { LeagueSettings } from '../sleeper/LeagueSettings'
-import { SleeperUser } from '../sleeper/SleeperUser'
+import {Box, Container, Grid, GridItem, Heading, Checkbox, HStack, useMediaQuery} from '@chakra-ui/react'
+import {produce} from 'immer'
+import {useEffect, useState} from 'react'
+import {DraftPick} from '../sleeper/DraftPick'
+import {DraftSettings} from '../sleeper/DraftSettings'
+import {LeagueSettings} from '../sleeper/LeagueSettings'
+import {SleeperUser} from '../sleeper/SleeperUser'
 import DraftSniperPickTable from './DraftSniperPickTable'
 import DraftTableFilterTabs from './DraftTableFilterTabs'
 import DraftSniperADPTable from './DraftSniperADPTable'
+import {Stack} from 'rsuite'
 
 interface MyProps {
 	leagueMembers: SleeperUser[] | undefined
@@ -23,18 +17,19 @@ interface MyProps {
 	league: LeagueSettings | undefined
 }
 const DraftSniperLeaguePage = (props: MyProps) => {
+	const [isLargerThan800] = useMediaQuery('(min-width: 800px)', {
+		ssr: true,
+		fallback: false, // return false on the server, and re-evaluate on the client side
+	})
 	const [drafts, setDrafts] = useState(new Map())
 	const [leagueMemberInfo, setLeagueMemberInfo] = useState(new Map())
 	const [picks, setPicks] = useState(props.picks?.flat() ?? [])
 	const [disabledMembers, setDisabledMembers] = useState([] as string[])
-    const [disabledDrafts, setDisabledDrafts] = useState([] as string[])
-    const [useRookieDraftsOnly, setUseRookieDraftsOnly] = useState(true)
+	const [disabledDrafts, setDisabledDrafts] = useState([] as string[])
+	const [useRookieDraftsOnly, setUseRookieDraftsOnly] = useState(true)
 
 	function toggleMember(checkbox: any) {
-		if (
-			checkbox.currentTarget.checked &&
-			disabledMembers.includes(checkbox.currentTarget.value)
-		) {
+		if (checkbox.currentTarget.checked && disabledMembers.includes(checkbox.currentTarget.value)) {
 			const index = disabledMembers.indexOf(checkbox.currentTarget.value, 0)
 			if (index > -1) {
 				const nextState = produce(disabledMembers, (draftState: string[]) => {
@@ -52,11 +47,8 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 		}
 	}
 
-    function toggleDraft(checkbox: any) {
-		if (
-			checkbox.currentTarget.checked &&
-			disabledDrafts.includes(checkbox.currentTarget.value)
-		) {
+	function toggleDraft(checkbox: any) {
+		if (checkbox.currentTarget.checked && disabledDrafts.includes(checkbox.currentTarget.value)) {
 			const index = disabledDrafts.indexOf(checkbox.currentTarget.value, 0)
 			if (index > -1) {
 				const nextState = produce(disabledDrafts, (draftState: string[]) => {
@@ -74,9 +66,9 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 		}
 	}
 
-    function toggleRookieDrafts(checkbox: any) {
-        setUseRookieDraftsOnly(checkbox.currentTarget.checked)
-    }
+	function toggleRookieDrafts(checkbox: any) {
+		setUseRookieDraftsOnly(checkbox.currentTarget.checked)
+	}
 
 	useEffect(() => {
 		let memberMap = new Map()
@@ -92,9 +84,10 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 		setPicks(props.picks?.flat() ?? [])
 	}, [props.drafts, props.leagueMembers, props.picks])
 
-	const desktopGrid = `"header header header"
-    "filter_tabs filter_tabs filter_tabs"
-    "draft_board draft_board draft_board"`
+	const desktopGrid = `"header header"
+    "filter_tabs draft_board"
+    "filter_tabs draft_board"
+	"filter_tabs draft_board"`
 
 	const mobileGrid = `"header"
   "filter_tabs"
@@ -107,52 +100,57 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 				px={4}
 				color={'white'}
 				templateAreas={[mobileGrid, desktopGrid]}
-				gridTemplateColumns={['1fr', '1fr 1fr 1fr']}
-			>
+				gridTemplateColumns={['1fr', '1fr 1fr']}>
 				<GridItem gridArea={'header'} py={4}>
 					<Heading size={'md'}>{props.league?.name}</Heading>
 				</GridItem>
 				<GridItem gridArea={'filter_tabs'} overflowX={'clip'}>
 					{leagueMemberInfo.size > 0 &&
 						drafts.size > 0 &&
-						props.leagueMembers != undefined && drafts != undefined && (
+						props.leagueMembers != undefined &&
+						drafts != undefined && (
 							<DraftTableFilterTabs
 								users={props.leagueMembers}
 								onMemberClick={toggleMember as any}
-                                onDraftClick={toggleDraft as any}
-                                drafts={Array.from(drafts.values())}
+								onDraftClick={toggleDraft as any}
+								drafts={Array.from(drafts.values())}
 							/>
 						)}
 
-                <Checkbox size={'md'} colorScheme={'primary'} id={"rookieDraftsOnlyToggle"} defaultChecked value={"useRookieDraftsOnly"} onChange={toggleRookieDrafts} >Rookie Drafts Only</Checkbox>
+					<Checkbox
+						size={'md'}
+						colorScheme={'primary'}
+						id={'rookieDraftsOnlyToggle'}
+						defaultChecked
+						value={'useRookieDraftsOnly'}
+						onChange={toggleRookieDrafts}>
+						Rookie Drafts Only
+					</Checkbox>
 				</GridItem>
 				<GridItem gridArea={'draft_board'}>
 					<Container
 						overflowX={'hidden'}
 						overflowY={'auto'}
 						backgroundColor={'surface.0'}
-                        padding={0}
-                        margin={0}
-						className='rs-theme-dark'
-					>
-                        
+						padding={0}
+						margin={0}
+						className='rs-theme-dark'>
 						{picks.length > 0 && leagueMemberInfo.size > 0 && (
-                            <>
-							{/* <DraftSniperPickTable
-								picks={picks}
-								memberData={leagueMemberInfo}
-								disabledMembers={disabledMembers}
-								allowExternalMemberPicks={false}
-							/> */}
+								// <DraftSniperPickTable
+								// 	picks={picks}
+								// 	memberData={leagueMemberInfo}
+								// 	disabledMembers={disabledMembers}
+								// 	allowExternalMemberPicks={false}
+								// />
 
-                            <DraftSniperADPTable
-                            picks={picks}
-                            memberData={leagueMemberInfo}
-                            disabledMembers={disabledMembers}
-                            disabledDrafts={disabledDrafts}
-                            allowExternalMemberPicks={false}
-                            rookieDraftsOnly={useRookieDraftsOnly}
-                        /></>
+								<DraftSniperADPTable
+									picks={picks}
+									memberData={leagueMemberInfo}
+									disabledMembers={disabledMembers}
+									disabledDrafts={disabledDrafts}
+									allowExternalMemberPicks={false}
+									rookieDraftsOnly={useRookieDraftsOnly}
+								/>
 						)}
 					</Container>
 				</GridItem>

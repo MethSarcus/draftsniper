@@ -1,5 +1,5 @@
 import {
-    Card, Checkbox, HStack, Image, Skeleton,
+    Card, Center, Checkbox, HStack, Image, Skeleton,
     SkeletonText, Spacer, Text, VStack
 } from '@chakra-ui/react'
 import { useState } from 'react'
@@ -26,7 +26,10 @@ const DraftSniperMemberToggleCard = (props: MyProps) => {
             minW={'200px'}
 			maxW={'200px'}
 		>
-			<HStack gap='1' mr={3}>
+			<Center>
+
+			
+			<HStack gap='1'>
 				<Skeleton isLoaded={imageLoaded} fadeDuration={4}>
 					<Image
 						objectFit='cover'
@@ -49,8 +52,10 @@ const DraftSniperMemberToggleCard = (props: MyProps) => {
 						</Text>
 					</SkeletonText>
 				</VStack>
-				<Checkbox size={'md'} colorScheme={'primary'} id={props.member_id} defaultChecked value={props.member_id} onChange={props.onClick} />
+				
 			</HStack>
+			<Checkbox size={'md'} ml={"auto"} mr={3} colorScheme={'primary'} id={props.member_id} defaultChecked value={props.member_id} onChange={props.onClick} />
+			</Center>
 		</Card>
 	)
 }

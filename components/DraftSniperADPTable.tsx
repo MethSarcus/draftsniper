@@ -180,7 +180,7 @@ const DraftSniperADPTable = (props: MyProps) => {
 	return (
 		<Table
 			virtualized
-			height={400}
+			height={500}
 			data={getData()}
 			headerHeight={30}
 			rowHeight={60}
