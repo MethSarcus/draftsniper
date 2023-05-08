@@ -27,7 +27,7 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 					<Box overflowX={'auto'}>
 						{props.users != undefined && (
 							<SimpleGrid
-								width={'-moz-max-content'}
+								width={"max-content"}
 								columns={Math.round(props.users.length / (isLargerThan800 ? 4 : 2))}
 								spacing={2}
 								paddingY={2}>
@@ -52,8 +52,8 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 					<Box overflowX={'auto'}>
 						{props.drafts != undefined && (
 							<SimpleGrid
-								width={'-moz-max-content'}
-								columns={Math.round(props.drafts?.length / (isLargerThan800 ? 4 : 2))}
+								width={"max-content"}
+								columns={Math.round(props.drafts?.length / (isLargerThan800 ? 4 : 1))}
 								spacing={2}
 								paddingY={2}>
 								{[...new Set(props.drafts)].map((draft) => {

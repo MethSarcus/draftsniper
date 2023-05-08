@@ -18,9 +18,10 @@ a {
 
 .bgImage {
   margin: 0;
-  height: 100%;
   overflow: hidden;
   background-attachment: fixed;
+  background-size: cover;
+  height: 100vh;
 }
 
 .QB {

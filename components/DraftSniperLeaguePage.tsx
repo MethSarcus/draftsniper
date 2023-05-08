@@ -104,7 +104,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 				<GridItem gridArea={'header'} py={4}>
 					<Heading size={'sm'}>{props.league?.name} member draft data</Heading>
 				</GridItem>
-				<GridItem gridArea={'filter_tabs'} overflowX={'clip'}>
+				<GridItem gridArea={'filter_tabs'} overflow={'clip'}>
 				<Checkbox
 						size={'md'}
 						colorScheme={'primary'}

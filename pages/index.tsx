@@ -1,7 +1,7 @@
 import type {NextPage} from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import {useRouter} from 'next/router'
+
 import React, {useState, useRef} from 'react'
 import {Box, Center, Container, Heading, Input, Text, VStack} from '@chakra-ui/react'
 import {Button} from '@chakra-ui/react'
@@ -11,6 +11,7 @@ import Card from '../components/Card'
 import UsernameForm from '../components/UsernameFrom'
 import {TfiTarget} from 'react-icons/tfi'
 import {GiAmericanFootballBall, GiTargeting} from 'react-icons/gi'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
 	const [text, setText] = useState('')
@@ -21,43 +22,14 @@ const Home: NextPage = () => {
 			<Head>
 				<title>Draft Sniper</title>
 				<meta name='An app for sniping those picks' content='Sneak a peep at your leaguemates draft boards' />
-				<link
-					rel='apple-touch-icon'
-					sizes='180x180'
-					href='/favicons/apple-touch-icon.png'
-				/>
-				<link
-					rel='icon'
-					type='image/png'
-					sizes='16x16'
-					href='/favicons/favicon-16x16.png'
-				/>
-				<link
-					rel='icon'
-					type='image/png'
-					sizes='32x32'
-					href='/favicons/favicon-32x32.png'
-				/>
-				<link
-					rel='icon'
-					type='image/png'
-					sizes='100x100'
-					href='/favicons/favicon-100x100.png'
-				/>
+				<link rel='apple-touch-icon' sizes='180x180' href='/favicons/apple-touch-icon.png' />
+				<link rel='icon' type='image/png' sizes='16x16' href='/favicons/favicon-16x16.png' />
+				<link rel='icon' type='image/png' sizes='32x32' href='/favicons/favicon-32x32.png' />
+				<link rel='icon' type='image/png' sizes='100x100' href='/favicons/favicon-100x100.png' />
 
-				<link
-					rel='icon'
-					type='image/png'
-					sizes='192x192'
-					href='/favicons/favicon-192x192.png'
-				/>
+				<link rel='icon' type='image/png' sizes='192x192' href='/favicons/favicon-192x192.png' />
 
-				<link
-					rel='icon'
-					type='image/png'
-					sizes='512x512'
-					href='/favicons/favicon-512x512.png'
-				/>
+				<link rel='icon' type='image/png' sizes='512x512' href='/favicons/favicon-512x512.png' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
@@ -69,7 +41,9 @@ const Home: NextPage = () => {
 					<Image
 						className='bgImage'
 						src={bg}
-						fill={true}
+						layout='fill'
+						objectFit='cover'
+						objectPosition='center'
 						z-index={0}
 						alt='Picture of draftboard'
 						placeholder='blur' // Optional blur-up while loading
@@ -84,17 +58,17 @@ const Home: NextPage = () => {
 							justifyContent={'center'}
 							flexDirection={'row'}
 							p={5}
-              m={5}
+							m={5}
 							overflow='hidden'
 							borderRadius={10}
 							style={{visibility: 'visible', opacity: '0.99', transition: '2s ease-in-out'}}>
 							<VStack align='stretch'>
 								<Center>
 									<Box>
-										<Box mb={"-30px"} ml={"10px"} color={"red"}>
+										<Box mb={'-30px'} ml={'10px'} color={'red'}>
 											<GiTargeting size={40} />
 										</Box>
-										<Box mt={-5} opacity={.5}>
+										<Box mt={-5} opacity={0.5}>
 											<GiAmericanFootballBall size={40} />
 										</Box>
 									</Box>

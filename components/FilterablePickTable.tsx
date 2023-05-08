@@ -1,7 +1,6 @@
 import { Checkbox, Divider, Heading, Stack } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import useSWR from "swr";
 import { Context } from "../contexts/Context";
 import { getAllLeaguePositions, POSITION } from "../utility/rosterFunctions";
 import DraftPickDataTable from "./DraftPickDataTable";
