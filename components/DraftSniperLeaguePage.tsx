@@ -125,7 +125,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 
 				</GridItem>
 				<GridItem gridArea={'draft_board'}>
-					<Container
+					<Box
 						overflowX={'hidden'}
 						overflowY={'auto'}
 						backgroundColor={'surface.0'}
@@ -150,7 +150,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 									rookieDraftsOnly={useRookieDraftsOnly}
 								/>
 						)}
-					</Container>
+					</Box>
 				</GridItem>
 			</Grid>
 		</Box>
