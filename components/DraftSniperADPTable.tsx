@@ -4,6 +4,7 @@ import {SetStateAction, useState} from 'react'
 import {Avatar, Whisper, Popover, AvatarGroup, Badge} from 'rsuite'
 import {SleeperUser} from '../sleeper/SleeperUser'
 import {Box, HStack, useMediaQuery} from '@chakra-ui/react'
+import NumPicksAvatarGroup from './NumPicksAvatarGroup'
 
 interface MyProps {
 	picks: DraftPick[]
@@ -115,26 +116,7 @@ const DraftSniperADPTable = (props: MyProps) => {
 		const drafted_by_ids = rowData['drafted_by'] as Map<string, number>
 		return (
 			<Cell {...props}>
-				<AvatarGroup>
-					{Array.from(drafted_by_ids.keys()).map((member_id) => {
-						const speaker = (
-							<Popover title={`${memberData?.get(member_id)?.display_name}`} />
-						)
-						return (
-							<Whisper key={member_id} placement='top' speaker={speaker}>
-								<Badge content={drafted_by_ids.get(member_id)}>
-									<Avatar
-										src={`https://sleepercdn.com/avatars/thumbs/${
-											memberData?.get(member_id)?.avatar ??
-											'8eb8f8bf999945d523f2c4033f70473e'
-										}`}
-										size='sm'
-									/>
-								</Badge>
-							</Whisper>
-						)
-					})}
-				</AvatarGroup>
+				<NumPicksAvatarGroup drafted_by_ids={drafted_by_ids} memberData={memberData}/>
 			</Cell>
 		)
 	}
