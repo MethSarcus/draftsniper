@@ -47,8 +47,9 @@ const DraftSettingsCard = (props: MyProps) => {
 		<Stack
 			spacing={1}
 			direction='column'
+			
 			boxShadow={'lg'}
-			p={3}
+			p={2}
 			minH={110}
 			minW={'200px'}
 			maxW={'250px'}
