@@ -17,7 +17,7 @@ const DraftTableFilterTabs = (props: DraftTableFilterTabsProps) => {
 		fallback: false, // return false on the server, and re-evaluate on the client side
 	})
 	return (
-		<Tabs isFitted size={'sm'} variant='soft-rounded' align='center'>
+		<Tabs isFitted size={'sm'} variant='soft-rounded' align='center' maxW={"2xl"}>
 			<TabList>
 				<Tab>Members</Tab>
 				<Tab>Drafts</Tab>
