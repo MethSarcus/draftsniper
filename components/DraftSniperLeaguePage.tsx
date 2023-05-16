@@ -1,6 +1,6 @@
 import {Box, Container, Grid, GridItem, Heading, Checkbox, HStack, useMediaQuery, Spinner} from '@chakra-ui/react'
 import {produce} from 'immer'
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {DraftPick} from '../sleeper/DraftPick'
 import {DraftSettings} from '../sleeper/DraftSettings'
 import {LeagueSettings} from '../sleeper/LeagueSettings'
@@ -9,6 +9,7 @@ import DraftSniperPickTable from './DraftSniperPickTable'
 import DraftTableFilterTabs from './DraftTableFilterTabs'
 import DraftSniperADPTable from './DraftSniperADPTable'
 import {Stack} from 'rsuite'
+import PositionalTableGroup from './PositionalTableGroup'
 
 interface MyProps {
 	leagueMembers: SleeperUser[] | undefined
@@ -27,6 +28,30 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 	const [disabledMembers, setDisabledMembers] = useState([] as string[])
 	const [disabledDrafts, setDisabledDrafts] = useState([] as string[])
 	const [useRookieDraftsOnly, setUseRookieDraftsOnly] = useState(true)
+
+
+	const myPickMap = useMemo(() => {
+			//A function to evaluate whether a draft pick should be filtered
+			const filterPickRules = {
+				allowExternalMemberPicks: false,
+				disabledMembers: disabledMembers,
+				disabledDrafts: disabledDrafts,
+				rookieDraftsOnly: useRookieDraftsOnly,
+				leagueMemberIds: Array.from(leagueMemberInfo?.keys())
+			}
+	let pickMap = new Map<string, DraftPick[]>()
+	props.picks?.flat().filter((pick) => {
+		return evaluatePick(pick, filterPickRules)
+	}).forEach((pick) => {
+			if (pickMap.has(pick.player_id)) {
+				pickMap.get(pick.player_id)?.push(pick)
+			} else {
+				pickMap.set(pick.player_id, [pick])
+			}
+		})
+		console.log(pickMap)
+		return pickMap
+	}, [disabledDrafts, disabledMembers, leagueMemberInfo, props.picks, useRookieDraftsOnly])
 
 	function toggleMember(checkbox: any) {
 		if (checkbox.currentTarget.checked && disabledMembers.includes(checkbox.currentTarget.value)) {
@@ -141,20 +166,46 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 								// 	allowExternalMemberPicks={false}
 								// />
 
-								<DraftSniperADPTable
-									picks={picks}
-									memberData={leagueMemberInfo}
-									disabledMembers={disabledMembers}
-									disabledDrafts={disabledDrafts}
-									allowExternalMemberPicks={false}
-									rookieDraftsOnly={useRookieDraftsOnly}
-								/>
+								// <DraftSniperADPTable
+								// 	picks={picks}
+								// 	memberData={leagueMemberInfo}
+								// 	disabledMembers={disabledMembers}
+								// 	disabledDrafts={disabledDrafts}
+								// 	allowExternalMemberPicks={false}
+								// 	rookieDraftsOnly={useRookieDraftsOnly}
+								// />
+								<PositionalTableGroup memberData={leagueMemberInfo} picks={myPickMap} loading={false}/>
+
 						)}
 					</Box>
 				</GridItem>
 			</Grid>
 		</Box>
 	)
+}
+
+function evaluatePick(pick: DraftPick, filterPickRules: any) {
+	let allowPick = true
+	
+	if (!filterPickRules.allowExternalMemberPicks && !(filterPickRules.leagueMemberIds as string[]).includes(pick.picked_by)) {
+		allowPick = false
+	}
+
+	if (filterPickRules.disabledMembers.includes(pick.picked_by) || pick.picked_by == '') {
+		allowPick = false
+	}
+
+	if (filterPickRules.rookieDraftsOnly && (parseInt(pick.metadata.years_exp) >= 1)) {
+		allowPick = false
+	}
+
+	if (filterPickRules.disabledDrafts && filterPickRules.disabledDrafts.includes(pick.draft_id)) {
+		allowPick = false
+	}
+	if (filterPickRules.memberData && filterPickRules.memberData?.has(pick.picked_by)) {
+		allowPick = false
+	}	
+	return allowPick
 }
 
 export default DraftSniperLeaguePage

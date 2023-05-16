@@ -15,7 +15,7 @@ const PlayerImageCell = ({
         <Cell {...props}>
             <HStack>
                 <Avatar
-                    alt={rowData['picks'][0]['metadata']['first_name']}
+                    alt={rowData['metadata']['first_name']}
                     src={
                         /\d/.test(srcString)
                             ? `https://sleepercdn.com/content/nfl/players/${srcString}.jpg`
@@ -32,7 +32,7 @@ const PlayerImageCell = ({
                     overflow={'hidden'}
                     fontSize={"xs"}
                 >
-                    {`${rowData.picks[0].metadata.first_name} ${rowData.picks[0].metadata.last_name}`}
+                    {`${rowData.metadata.first_name} ${rowData.metadata.last_name}`}
                 </Box>
             </HStack>
         </Cell>
