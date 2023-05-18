@@ -24,16 +24,17 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 	})
 	const [drafts, setDrafts] = useState(new Map())
 	const [leagueMemberInfo, setLeagueMemberInfo] = useState(new Map())
-	const [picks, setPicks] = useState(props.picks?.flat() ?? [])
+	const [picks, setPicks] = useState([] as DraftPick[])
 	const [disabledMembers, setDisabledMembers] = useState([] as string[])
 	const [disabledDrafts, setDisabledDrafts] = useState([] as string[])
 	const [useRookieDraftsOnly, setUseRookieDraftsOnly] = useState(true)
+	const [memberPicksOnly, setMemberPicksOnly] = useState(true)
 
 
 	const myPickMap = useMemo(() => {
 			//A function to evaluate whether a draft pick should be filtered
 			const filterPickRules = {
-				allowExternalMemberPicks: false,
+				memberPicksOnly: memberPicksOnly,
 				disabledMembers: disabledMembers,
 				disabledDrafts: disabledDrafts,
 				rookieDraftsOnly: useRookieDraftsOnly,
@@ -49,9 +50,8 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 				pickMap.set(pick.player_id, [pick])
 			}
 		})
-		console.log(pickMap)
 		return pickMap
-	}, [disabledDrafts, disabledMembers, leagueMemberInfo, props.picks, useRookieDraftsOnly])
+	}, [disabledDrafts, disabledMembers, leagueMemberInfo, memberPicksOnly, props.picks, useRookieDraftsOnly])
 
 	function toggleMember(checkbox: any) {
 		if (checkbox.currentTarget.checked && disabledMembers.includes(checkbox.currentTarget.value)) {
@@ -93,6 +93,10 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 
 	function toggleRookieDrafts(checkbox: any) {
 		setUseRookieDraftsOnly(checkbox.currentTarget.checked)
+	}
+
+	function toggleExternalMemberPicks(checkbox: any) {
+		setMemberPicksOnly(checkbox.currentTarget.checked)
 	}
 
 	useEffect(() => {
@@ -140,6 +144,17 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 						onChange={toggleRookieDrafts}>
 						Rookie Drafts Only
 					</Checkbox>
+					<br/>
+					<Checkbox
+						size={'md'}
+						colorScheme={'primary'}
+						id={'memberPicksOnlyToggle'}
+						defaultChecked
+						my={2}
+						value={'memberPicksOnly'}
+						onChange={toggleExternalMemberPicks}>
+						League Member Picks Only
+					</Checkbox>
 							<DraftTableFilterTabs
 								users={props.leagueMembers}
 								onMemberClick={toggleMember as any}
@@ -174,7 +189,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 								// 	allowExternalMemberPicks={false}
 								// 	rookieDraftsOnly={useRookieDraftsOnly}
 								// />
-								<PositionalTableGroup memberData={leagueMemberInfo} picks={myPickMap} loading={false}/>
+								<PositionalTableGroup memberData={leagueMemberInfo} picks={myPickMap}/>
 
 						)}
 					</Box>
@@ -187,7 +202,7 @@ const DraftSniperLeaguePage = (props: MyProps) => {
 function evaluatePick(pick: DraftPick, filterPickRules: any) {
 	let allowPick = true
 	
-	if (!filterPickRules.allowExternalMemberPicks && !(filterPickRules.leagueMemberIds as string[]).includes(pick.picked_by)) {
+	if (filterPickRules.memberPicksOnly && !(filterPickRules.leagueMemberIds as string[]).includes(pick.picked_by)) {
 		allowPick = false
 	}
 
