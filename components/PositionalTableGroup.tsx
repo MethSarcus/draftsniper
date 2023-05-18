@@ -19,7 +19,6 @@ import {useState} from 'react'
 
 interface MyProps {
 	picks: Map<string, DraftPick[]>
-	loading: boolean
 	memberData: Map<string, SleeperUser> | undefined
 }
 
@@ -29,29 +28,41 @@ const PositionalTableGroup = (props: MyProps) => {
 		let adp = value.map((pick) => pick.pick_no).reduce((a, b) => a + b, 0) / value.length
 		let pos = value[0].metadata.position as POSITION
 		let drafted_by = new Map<string, number>()
+		let highestPick = 5000;
+		let lowestPick = 0;
 		value.forEach((pick) => {
-			if (drafted_by.has(pick.picked_by)) {
-				drafted_by.set(pick.picked_by, drafted_by.get(pick.picked_by)! + 1)
-			} else {
-				drafted_by.set(pick.picked_by, 1)
+			let id = pick.picked_by
+			if (!props.memberData?.has(pick.picked_by)) {
+				id='External Member'
 			}
+			if (drafted_by.has(id)) {
+				drafted_by.set(id, drafted_by.get(id)! + 1)
+			} else {
+				drafted_by.set(id, 1)
+			}
+
+			if (pick.pick_no < highestPick) {
+				highestPick = pick.pick_no
+			}
+			if (pick.pick_no > lowestPick) {
+				lowestPick = pick.pick_no
+			}
+
 		})
+		let adpPick = {
+			adp: adp,
+			player_id: value[0].player_id,
+			drafted_by: drafted_by,
+			metadata: value[0].metadata,
+			highest_pick: highestPick,
+			lowest_pick: lowestPick
+		}
 
 		if (positionalPickMap.has(pos)) {
-			positionalPickMap.get(pos)?.push({
-				adp: adp,
-				player_id: value[0].player_id,
-				drafted_by: drafted_by,
-				metadata: value[0].metadata,
-			})
+			positionalPickMap.get(pos)?.push(adpPick)
 		} else {
 			positionalPickMap.set(pos, [
-				{
-					adp: adp,
-					player_id: value[0].player_id,
-					drafted_by: drafted_by,
-					metadata: value[0].metadata,
-				},
+				adpPick,
 			])
 		}
 	}
@@ -73,7 +84,6 @@ const PositionalTableGroup = (props: MyProps) => {
 			<Box width={'100%'}>
 				<AdpTable
 					picks={value != "all" ? positionalPickMap.get(value as POSITION) ?? [] : Array.from(positionalPickMap.values()).flat()}
-					loading={props.loading}
 					memberData={props.memberData}
 				/>
 			</Box>

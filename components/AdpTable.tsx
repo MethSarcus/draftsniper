@@ -8,14 +8,13 @@ import { SleeperUser } from "../sleeper/SleeperUser"
 
 interface MyProps {
     picks: AdpPick[]
-    loading: boolean
     memberData: Map<string, SleeperUser> | undefined
  }
 
  
 
 const AdpTable = (myProps: MyProps) => {
-    const [loading, setLoading] = useState(myProps.loading)
+    const [loading, setLoading] = useState(false)
     const [sortColumn, setSortColumn] = useState()
 	const [sortType, setSortType] = useState()
     const [isLargerThan800] = useMediaQuery('(min-width: 800px)', {
@@ -70,16 +69,17 @@ return (<Table
     data={getData()}
     headerHeight={30}
     rowHeight={60}
+	hover={false}
     sortColumn={sortColumn}
     sortType={sortType}
     onSortColumn={handleSortColumn}
     loading={loading}
 >
-    <Column width={55} align='center' fixed sortable>
+    <Column width={55} flexGrow={.5} align='center' fixed sortable>
         <HeaderCell style={{padding: 4}}>ADP</HeaderCell>
         <Cell dataKey='adp'>{rowData => Math.round(rowData["adp"])}</Cell>
     </Column>
-    <Column flexGrow={1}>
+    <Column flexGrow={2} fixed>
         <HeaderCell style={{padding: 4}}>Player</HeaderCell>
         <PlayerImageCell
             dataKey='player_id'
@@ -87,12 +87,16 @@ return (<Table
         />
     </Column>
 
-    <Column flexGrow={1}>
+    <Column flexGrow={2}>
         <HeaderCell style={{padding: 4}}>Picked By</HeaderCell>
         <AvatarGroupCell
             dataKey='drafted_by'
             rowData={(rowData: any) => rowData}
         />
+    </Column>
+	<Column align='center' flexGrow={.5}>
+        <HeaderCell style={{padding: 4}}>Range</HeaderCell>
+        <Cell dataKey='range'>{rowData => `${rowData["highest_pick"]} - ${rowData["lowest_pick"]}`}</Cell>
     </Column>
 </Table>)
 }
@@ -103,6 +107,8 @@ export interface AdpPick {
 	player_id: string
 	drafted_by: Map<string, number>
     metadata: SnakeMetadata
+	highest_pick: number
+	lowest_pick: number
 }
 
 
